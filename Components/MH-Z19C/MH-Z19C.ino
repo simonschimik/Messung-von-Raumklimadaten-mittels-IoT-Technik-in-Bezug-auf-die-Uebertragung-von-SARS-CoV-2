@@ -12,7 +12,7 @@ void setup() {
   Serial.begin(9600);                                     
   mySerial.begin(BAUDRATE);                               
   myMHZ19.begin(mySerial);                               
-  myMHZ19.autoCalibration(); 
+  myMHZ19.autoCalibration(false); 
   Serial.println("Preheating sensor!");
   delay(120000);
 }
