@@ -1,0 +1,4 @@
+- PM levels not precise on display
+- Serial communication not possible since tx and rx pins are used for sds011
+- Display flickering
+- Faulty sensor outputs not handled
