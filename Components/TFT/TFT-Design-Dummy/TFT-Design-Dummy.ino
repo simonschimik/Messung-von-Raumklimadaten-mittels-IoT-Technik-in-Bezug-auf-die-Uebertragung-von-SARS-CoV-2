@@ -2,9 +2,9 @@
 #include <Adafruit_ST7735.h> // Hardware-specific library for ST7735
 #include <SPI.h>
 
-#define TFT_CS         15 
-#define TFT_RST        0                                
-#define TFT_DC         2 
+#define TFT_CS         5 
+#define TFT_RST        17                                
+#define TFT_DC         16 
 
 Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
 
@@ -21,6 +21,7 @@ void setup() {
 
   tft.initR(INITR_BLACKTAB); 
   tft.fillScreen(ST7735_BLACK);
+  tft.setTextSize(1);
 
   // Draw outlines
   tft.drawLine(0, 0, tft.width(), 0, ST7735_WHITE);
@@ -41,6 +42,8 @@ void setup() {
   drawCenteredText("CO2-Concentration", tft.width(), tft.height()*5/12 + 2);
   drawCenteredText("PM10", tft.width()/2+2, tft.height()*2/3+2);
   drawCenteredText("PM2.5", tft.width()*3/2+2, tft.height()*2/3+2);
+  drawCenteredText("um_g/m^3", tft.width() / 2, tft.height()*2/3+43);
+  drawCenteredText("um_g/m^3", tft.width() * 3/2, tft.height()*2/3+43);
 
   // Draw sensor values
   tft.setTextSize(1);
@@ -54,9 +57,8 @@ void setup() {
   drawCenteredText("102", tft.width() / 2, tft.height()*2/3+17);
   drawCenteredText("153", tft.width() * 3/2, tft.height()*2/3+17);
   
-  tft.setTextSize(1);
-  drawCenteredText("mk_g/m^3", tft.width() / 2, tft.height()*2/3+43);
-  drawCenteredText("mk_g/m^3", tft.width() * 3/2, tft.height()*2/3+43);
+  
+  
 }
 
 void loop(){

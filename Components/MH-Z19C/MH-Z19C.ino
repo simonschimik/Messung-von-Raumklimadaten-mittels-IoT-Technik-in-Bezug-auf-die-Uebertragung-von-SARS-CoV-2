@@ -1,20 +1,20 @@
 #include "MHZ19.h"                                        
-#include <SoftwareSerial.h> 
 
-#define RX_PIN 12                                          // Rx pin which the MHZ19 Tx pin is attached to
-#define TX_PIN 16                                          // Tx pin which the MHZ19 Rx pin is attached to
+#define RX_PIN 33                                          // Rx pin which the MHZ19 Tx pin is attached to
+#define TX_PIN 32                                          // Tx pin which the MHZ19 Rx pin is attached to
 #define BAUDRATE 9600                                      
 
 MHZ19 myMHZ19;                                            
-SoftwareSerial mySerial(RX_PIN, TX_PIN);     
+HardwareSerial mySerial(1); // Use UART channel 1  
 
 void setup() {
   Serial.begin(9600);                                     
-  mySerial.begin(BAUDRATE);                               
-  myMHZ19.begin(mySerial);                               
+  mySerial.begin(BAUDRATE, SERIAL_8N1, 32, 33);                               
+  myMHZ19.begin(mySerial);                                
   myMHZ19.autoCalibration(false); 
   Serial.println("Preheating sensor!");
-  delay(120000);
+  //delay(120000);
+
 }
 
 void loop() {
