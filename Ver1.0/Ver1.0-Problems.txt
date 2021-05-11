@@ -7,6 +7,5 @@
 - only makeshift debug/ota webserver interface
 - wiring could be improved
 - documentation?
-- hard to read code / basically no helpful comments (returns, arguments, etc.)
 - code needs to be abstracted properly
 - SDS011 always running

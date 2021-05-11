@@ -1,3 +1,8 @@
+/**
+ * @file Ver2.0.ino
+ * @author Simon Schimik
+ * @version 2.0
+ */
 // TFT-Libraries
 #include <Adafruit_GFX.h>    // Core graphics library
 #include <Adafruit_ST7735.h> // Hardware-specific library for ST7735
@@ -45,9 +50,11 @@ MHZ19 myMHZ19;
 HardwareSerial mhSerial(1); // Use UART channel 1  
 Adafruit_BME280 bme;
 
-double pm25, pm10, temperature, humidity, pressure;
-int CO2;
-
+/**
+ * Initialises OTA-Server
+ * 
+ * Connects to WiFi with specified credentials, initialises an asynchronous webserver and starts ElegentOTA functionality
+ */
 void initElegentOTA(){
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
@@ -65,8 +72,7 @@ void initElegentOTA(){
   Serial.println(WiFi.localIP());
 
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
-    String response = "Temperature: " + String(temperature) + "\nHumidity: " + String(humidity) + "\nPressure: " + String(pressure) + "\nCO2: " + String(CO2) + "\nPM10: " + String(pm10) + "\nPM2.5: " + String(pm25);
-    request->send(200, "text/plain", response);
+    request->send(200, "text/plain", "Hello");
   });
 
   AsyncElegantOTA.begin(&server);
@@ -74,6 +80,13 @@ void initElegentOTA(){
   Serial.println("HTTP server started");
 }
 
+/**
+ * Draws centered text on display
+ * 
+ * @param text: The text to be printed
+ * @param x: Width of the screen in which the text is supposed to be centered (f.e. <b> x = tft.width() </b> centers the text on the entire display, <b> x = tft.width()  / 2 </b>  only on the left half of the display)
+ * @param y: Y position of the centered text on the display
+ */
 void drawCenteredText(String text, int x, int y){
   int16_t x1, y1;
   uint16_t w, h;
@@ -82,6 +95,13 @@ void drawCenteredText(String text, int x, int y){
   tft.print(text);
 }
 
+/**
+ * Returns a color based on the parameter pm10
+ * 
+ * Returns a color for better visualisation on the display of the pm10 value
+ * @param pm10: The pm10 value
+ * @return Returns a 16-bit hexadecimal representation of the corrosponding color
+ */
 long getPm10Color(double pm10){
   if(pm10 <= 50){
     return ST7735_CYAN;
@@ -98,6 +118,13 @@ long getPm10Color(double pm10){
   }
 }
 
+/**
+ * Returns a color based on the parameter pm25
+ * 
+ * Returns a color for better visualisation on the display of the pm2.5 value
+ * @param pm25: The pm2.5 value
+ * @return Returns a 16-bit hexadecimal representation of the corrosponding color
+ */
 long getPm25Color(double pm25){
   if(pm25 <= 30){
     return ST7735_CYAN;
@@ -114,6 +141,13 @@ long getPm25Color(double pm25){
   }
 }
 
+/**
+ * Returns a color based on the parameter co2
+ * 
+ * Returns a color for better visualisation on the display of the co2 value
+ * @param co2: The co2 value
+ * @return Returns a 16-bit hexadecimal representation of the corrosponding color
+ */
 long getCO2Color(int co2){
   if(co2 <= 650){
     return ST7735_CYAN;
@@ -130,50 +164,18 @@ long getCO2Color(int co2){
   }
 }
 
-void setup() {
-  Serial.begin(9600);
-
-  // Init TFT
-  tft.initR(INITR_BLACKTAB); 
-  tft.fillScreen(ST7735_BLACK);
-  tft.setTextSize(1);
-  drawCenteredText("init sensors", tft.width(), tft.height()/2);
-
-  // Init SDS
-  sds.begin();
-  Serial.println(sds.queryFirmwareVersion().toString()); // prints firmware version
-  Serial.println(sds.setQueryReportingMode().toString()); // ensures sensor is in 'query' reporting mode
-  sds.wakeup();
-
-  // Init MH-Z19C
-  mhSerial.begin(9600, SERIAL_8N1, 32, 33);                               
-  myMHZ19.begin(mhSerial);                                
-  myMHZ19.autoCalibration(false); 
-
-  // Init BME280
-  bme.begin(0x76);
-
-  //initElegentOTA();
-}
-
-void loop() {
-  delay(2000);
-  // Retrieve sensor values
-  PmResult sds_results = sds.queryPm();
-  if (sds_results.isOk()){
-    pm25 = sds_results.pm25;
-    pm10 = sds_results.pm10;
-  } else {
-    pm25 = -1;
-    pm10 = -1;
-  }
-
-  CO2 = myMHZ19.getCO2();
-
-  temperature = bme.readTemperature();
-  humidity = bme.readHumidity();
-  pressure = bme.readPressure() / 100.0;
-
+/**
+ * Prints the UI and sensor values
+ * 
+ * @param pm25: The pm2.5 value to print
+ * @param pm10: The pm10 value to print
+ * @param temperature: The temperature value to print
+ * @param humidity: The humidity value to print
+ * @param pressure: The pressure value to print
+ *  @param CO2: The CO2 value to print
+ * 
+ */
+void printDisplay(double pm25, double pm10, double temperature, double humidity, double pressure, int CO2){
   // Clear screen
   tft.fillScreen(ST7735_BLACK);
   
@@ -212,8 +214,72 @@ void loop() {
   drawCenteredText(String(CO2), tft.width(), tft.height()*5/12 + 17);
   tft.setTextColor(getPm10Color(pm10));
   drawCenteredText(String((int)pm10), tft.width() / 2, tft.height()*2/3+17);
-  tft.setTextColor(getPm10Color(pm25));
+  tft.setTextColor(getPm25Color(pm25));
   drawCenteredText(String((int)pm25), tft.width() * 3/2, tft.height()*2/3+17);
+}
+
+/**
+ * Reads sensor values
+ * 
+ * Reads sensors and assigns the retrieved values to the passed pointers
+ * @param *pm25: Pointer to a double variable for pm25 values
+ * @param *pm10: Pointer to a double variable for pm10 values
+ * @param *temperature: Pointer to a double variable for temperature values
+ * @param *humidity: Pointer to a double variable for humidity values
+ * @param *pressure: Pointer to a double variable for pressure values
+ * @param *CO2: Pointer to an integer variable for CO2 values
+ */
+void readSensors(double *pm25, double *pm10, double *temperature, double *humidity, double *pressure, int *CO2){
+  PmResult sds_results = sds.queryPm();
+  if (sds_results.isOk()){
+    *pm25 = sds_results.pm25;
+    *pm10 = sds_results.pm10;
+  } else {
+    *pm25 = -1;
+    *pm10 = -1;
+  }
+
+  *CO2 = myMHZ19.getCO2();
+
+  *temperature = bme.readTemperature();
+  *humidity = bme.readHumidity();
+  *pressure = bme.readPressure() / 100.0;
+}
+
+void setup() {
+  Serial.begin(9600);
+
+  // Init TFT
+  tft.initR(INITR_BLACKTAB); 
+  tft.fillScreen(ST7735_BLACK);
+  tft.setTextSize(1);
+  drawCenteredText("init sensors", tft.width(), tft.height()/2);
+
+  // Init SDS
+  sds.begin();
+  Serial.println(sds.queryFirmwareVersion().toString()); // prints firmware version
+  Serial.println(sds.setQueryReportingMode().toString()); // ensures sensor is in 'query' reporting mode
+  sds.wakeup();
+
+  // Init MH-Z19C
+  mhSerial.begin(9600, SERIAL_8N1, 32, 33);                               
+  myMHZ19.begin(mhSerial);                                
+  myMHZ19.autoCalibration(false); 
+
+  // Init BME280
+  bme.begin(0x76);
+
+  //initElegentOTA();
+}
+
+void loop() {
+  delay(2000);
+
+  double pm25, pm10, temperature, humidity, pressure;
+  int CO2;
+  
+ readSensors(&pm25, &pm10, &temperature, &humidity, &pressure, &CO2);
+ printDisplay(pm25, pm10, temperature, humidity, pressure, CO2);
 
   //AsyncElegantOTA.loop();
 }
