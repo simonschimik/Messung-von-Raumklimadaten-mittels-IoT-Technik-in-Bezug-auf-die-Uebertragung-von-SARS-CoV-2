@@ -3,6 +3,7 @@
  * @author Simon Schimik
  * @version 2.0
  */
+ 
 // TFT-Libraries
 #include <Adafruit_GFX.h>    // Core graphics library
 #include <Adafruit_ST7735.h> // Hardware-specific library for ST7735
@@ -25,6 +26,9 @@
 #include <ESPAsyncWebServer.h>
 #include <AsyncElegantOTA.h>
 
+#include "DataLoggingHandler.cpp"
+#include "MQTTLogger.cpp"
+
 // TFT-Pins
 #define TFT_CS 5 
 #define TFT_RST 17                                
@@ -39,9 +43,9 @@
 #define MH_RX 33
 
 // ElegantOTA-Definitions
-const char* ssid = "";
-const char* password = "";
-AsyncWebServer server(80);
+const char* ssid = "XXXX";
+const char* password = "XXXX";
+AsyncWebServer server(80); 
 
 // Sensor-Definitions
 Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
@@ -49,13 +53,16 @@ SdsDustSensor sds(SDS_RX, SDS_TX);
 MHZ19 myMHZ19;                                            
 HardwareSerial mhSerial(1); // Use UART channel 1  
 Adafruit_BME280 bme;
+DataLoggingHandler* logger;
+
 
 /**
  * Initialises OTA-Server
  * 
  * Connects to WiFi with specified credentials, initialises an asynchronous webserver and starts ElegentOTA functionality
  */
-void initElegentOTA(){
+void initElegentOTA()
+{
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
   Serial.println("");
@@ -87,7 +94,8 @@ void initElegentOTA(){
  * @param x: Width of the screen in which the text is supposed to be centered (f.e. <b> x = tft.width() </b> centers the text on the entire display, <b> x = tft.width()  / 2 </b>  only on the left half of the display)
  * @param y: Y position of the centered text on the display
  */
-void drawCenteredText(String text, int x, int y){
+void drawCenteredText(String text, int x, int y)
+{
   int16_t x1, y1;
   uint16_t w, h;
   tft.getTextBounds(text, x, y, &x1, &y1, &w, &h);
@@ -102,7 +110,8 @@ void drawCenteredText(String text, int x, int y){
  * @param pm10: The pm10 value
  * @return Returns a 16-bit hexadecimal representation of the corrosponding color
  */
-long getPm10Color(double pm10){
+long getPm10Color(double pm10)
+{
   if(pm10 <= 50){
     return ST7735_CYAN;
   }else if(pm10 <= 100){
@@ -125,7 +134,8 @@ long getPm10Color(double pm10){
  * @param pm25: The pm2.5 value
  * @return Returns a 16-bit hexadecimal representation of the corrosponding color
  */
-long getPm25Color(double pm25){
+long getPm25Color(double pm25)
+{
   if(pm25 <= 30){
     return ST7735_CYAN;
   }else if(pm25 <= 60){
@@ -148,7 +158,8 @@ long getPm25Color(double pm25){
  * @param co2: The co2 value
  * @return Returns a 16-bit hexadecimal representation of the corrosponding color
  */
-long getCO2Color(int co2){
+long getCO2Color(int co2)
+{
   if(co2 <= 650){
     return ST7735_CYAN;
   }else if(co2 <= 950){
@@ -175,7 +186,8 @@ long getCO2Color(int co2){
  *  @param CO2: The CO2 value to print
  * 
  */
-void printDisplay(double pm25, double pm10, double temperature, double humidity, double pressure, int CO2){
+void printDisplay(const double pm25, const double pm10, const double temperature, const double humidity, const double pressure, const int CO2)
+{
   // Clear screen
   tft.fillScreen(ST7735_BLACK);
   
@@ -222,14 +234,15 @@ void printDisplay(double pm25, double pm10, double temperature, double humidity,
  * Reads sensor values
  * 
  * Reads sensors and assigns the retrieved values to the passed pointers
- * @param *pm25: Pointer to a double variable for pm25 values
- * @param *pm10: Pointer to a double variable for pm10 values
- * @param *temperature: Pointer to a double variable for temperature values
- * @param *humidity: Pointer to a double variable for humidity values
- * @param *pressure: Pointer to a double variable for pressure values
- * @param *CO2: Pointer to an integer variable for CO2 values
+ * @param pm25: Pointer to a double variable for pm25 values
+ * @param pm10: Pointer to a double variable for pm10 values
+ * @param temperature: Pointer to a double variable for temperature values
+ * @param humidity: Pointer to a double variable for humidity values
+ * @param pressure: Pointer to a double variable for pressure values
+ * @param CO2: Pointer to an integer variable for CO2 values
  */
-void readSensors(double *pm25, double *pm10, double *temperature, double *humidity, double *pressure, int *CO2){
+void readSensors(double* const pm25, double* const pm10, double* const temperature, double* const humidity, double* const pressure, int* const CO2)
+{
   PmResult sds_results = sds.queryPm();
   if (sds_results.isOk()){
     *pm25 = sds_results.pm25;
@@ -246,7 +259,8 @@ void readSensors(double *pm25, double *pm10, double *temperature, double *humidi
   *pressure = bme.readPressure() / 100.0;
 }
 
-void setup() {
+void setup() 
+{
   Serial.begin(9600);
 
   // Init TFT
@@ -269,17 +283,20 @@ void setup() {
   // Init BME280
   bme.begin(0x76);
 
-  //initElegentOTA();
+  initElegentOTA();
+  logger =  new MQTTLogger( "io.adafruit.com", 1883, "XXXX",  "XXXX");
+  logger->init();
 }
 
-void loop() {
-  delay(2000);
+void loop() 
+{
+  delay(15000); // TODO
 
   double pm25, pm10, temperature, humidity, pressure;
   int CO2;
   
  readSensors(&pm25, &pm10, &temperature, &humidity, &pressure, &CO2);
  printDisplay(pm25, pm10, temperature, humidity, pressure, CO2);
-
+ logger->log(pm25, pm10, temperature, humidity, pressure, CO2);
   //AsyncElegantOTA.loop();
 }

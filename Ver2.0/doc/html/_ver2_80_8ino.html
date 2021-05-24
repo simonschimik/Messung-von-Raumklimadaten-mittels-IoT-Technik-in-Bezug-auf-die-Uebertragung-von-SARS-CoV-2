@@ -106,12 +106,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a656f41514cf66abbeefa2be7f2b1dab3"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_ver2_80_8ino.html#a656f41514cf66abbeefa2be7f2b1dab3">getCO2Color</a> (int co2)</td></tr>
 <tr class="memdesc:a656f41514cf66abbeefa2be7f2b1dab3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a color based on the parameter co2.  <a href="_ver2_80_8ino.html#a656f41514cf66abbeefa2be7f2b1dab3">More...</a><br /></td></tr>
 <tr class="separator:a656f41514cf66abbeefa2be7f2b1dab3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c5ea451ed8a518fe6d9492154e63ace"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_ver2_80_8ino.html#a8c5ea451ed8a518fe6d9492154e63ace">printDisplay</a> (double pm25, double pm10, double temperature, double humidity, double pressure, int CO2)</td></tr>
-<tr class="memdesc:a8c5ea451ed8a518fe6d9492154e63ace"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the UI and sensor values.  <a href="_ver2_80_8ino.html#a8c5ea451ed8a518fe6d9492154e63ace">More...</a><br /></td></tr>
-<tr class="separator:a8c5ea451ed8a518fe6d9492154e63ace"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0686b08935c52923c2d2b83d64e71f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_ver2_80_8ino.html#ae0686b08935c52923c2d2b83d64e71f6">readSensors</a> (double *pm25, double *pm10, double *temperature, double *humidity, double *pressure, int *CO2)</td></tr>
-<tr class="memdesc:ae0686b08935c52923c2d2b83d64e71f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads sensor values.  <a href="_ver2_80_8ino.html#ae0686b08935c52923c2d2b83d64e71f6">More...</a><br /></td></tr>
-<tr class="separator:ae0686b08935c52923c2d2b83d64e71f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a690ec2ffb32914959c5aeea1956ebb64"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_ver2_80_8ino.html#a690ec2ffb32914959c5aeea1956ebb64">printDisplay</a> (const double pm25, const double pm10, const double temperature, const double humidity, const double pressure, const int CO2)</td></tr>
+<tr class="memdesc:a690ec2ffb32914959c5aeea1956ebb64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the UI and sensor values.  <a href="_ver2_80_8ino.html#a690ec2ffb32914959c5aeea1956ebb64">More...</a><br /></td></tr>
+<tr class="separator:a690ec2ffb32914959c5aeea1956ebb64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab23b41614a35e12a41a53dccf5a57f98"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_ver2_80_8ino.html#ab23b41614a35e12a41a53dccf5a57f98">readSensors</a> (double *const pm25, double *const pm10, double *const temperature, double *const humidity, double *const pressure, int *const CO2)</td></tr>
+<tr class="memdesc:ab23b41614a35e12a41a53dccf5a57f98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads sensor values.  <a href="_ver2_80_8ino.html#ab23b41614a35e12a41a53dccf5a57f98">More...</a><br /></td></tr>
+<tr class="separator:ab23b41614a35e12a41a53dccf5a57f98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Simon Schimik </dd></dl>
@@ -262,8 +262,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a8c5ea451ed8a518fe6d9492154e63ace"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c5ea451ed8a518fe6d9492154e63ace">&#9670;&nbsp;</a></span>printDisplay()</h2>
+<a id="a690ec2ffb32914959c5aeea1956ebb64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a690ec2ffb32914959c5aeea1956ebb64">&#9670;&nbsp;</a></span>printDisplay()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -271,37 +271,37 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void printDisplay </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>pm25</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>pm10</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>temperature</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>humidity</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>pressure</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">const int&#160;</td>
           <td class="paramname"><em>CO2</em>&#160;</td>
         </tr>
         <tr>
@@ -327,8 +327,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ae0686b08935c52923c2d2b83d64e71f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0686b08935c52923c2d2b83d64e71f6">&#9670;&nbsp;</a></span>readSensors()</h2>
+<a id="ab23b41614a35e12a41a53dccf5a57f98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab23b41614a35e12a41a53dccf5a57f98">&#9670;&nbsp;</a></span>readSensors()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -336,37 +336,37 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void readSensors </td>
           <td>(</td>
-          <td class="paramtype">double *&#160;</td>
+          <td class="paramtype">double *const&#160;</td>
           <td class="paramname"><em>pm25</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double *&#160;</td>
+          <td class="paramtype">double *const&#160;</td>
           <td class="paramname"><em>pm10</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double *&#160;</td>
+          <td class="paramtype">double *const&#160;</td>
           <td class="paramname"><em>temperature</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double *&#160;</td>
+          <td class="paramtype">double *const&#160;</td>
           <td class="paramname"><em>humidity</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double *&#160;</td>
+          <td class="paramtype">double *const&#160;</td>
           <td class="paramname"><em>pressure</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int *&#160;</td>
+          <td class="paramtype">int *const&#160;</td>
           <td class="paramname"><em>CO2</em>&#160;</td>
         </tr>
         <tr>
@@ -380,12 +380,12 @@ Functions</h2></td></tr>
 <p>Reads sensor values. </p>
 <p>Reads sensors and assigns the retrieved values to the passed pointers </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">*pm25</td><td>Pointer to a double variable for pm25 values </td></tr>
-    <tr><td class="paramname">*pm10</td><td>Pointer to a double variable for pm10 values </td></tr>
-    <tr><td class="paramname">*temperature</td><td>Pointer to a double variable for temperature values </td></tr>
-    <tr><td class="paramname">*humidity</td><td>Pointer to a double variable for humidity values </td></tr>
-    <tr><td class="paramname">*pressure</td><td>Pointer to a double variable for pressure values </td></tr>
-    <tr><td class="paramname">*CO2</td><td>Pointer to an integer variable for CO2 values </td></tr>
+    <tr><td class="paramname">pm25</td><td>Pointer to a double variable for pm25 values </td></tr>
+    <tr><td class="paramname">pm10</td><td>Pointer to a double variable for pm10 values </td></tr>
+    <tr><td class="paramname">temperature</td><td>Pointer to a double variable for temperature values </td></tr>
+    <tr><td class="paramname">humidity</td><td>Pointer to a double variable for humidity values </td></tr>
+    <tr><td class="paramname">pressure</td><td>Pointer to a double variable for pressure values </td></tr>
+    <tr><td class="paramname">CO2</td><td>Pointer to an integer variable for CO2 values </td></tr>
   </table>
   </dd>
 </dl>
