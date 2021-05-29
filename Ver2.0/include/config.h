@@ -1,3 +1,9 @@
+/**
+ * @file config.h
+ * @author Simon Schimik
+ * @version 2.0
+ */
+
 // Arduino Core
 #include "Arduino.h"
 #include <Wifi.h>

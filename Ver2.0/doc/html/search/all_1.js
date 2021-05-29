@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['getco2color_1',['getCO2Color',['../_ver2_80_8cpp.html#a656f41514cf66abbeefa2be7f2b1dab3',1,'Ver2.0.cpp']]],
-  ['getpm10color_2',['getPm10Color',['../_ver2_80_8cpp.html#a905c05b6a96352032769e7e3292a48c4',1,'Ver2.0.cpp']]],
-  ['getpm25color_3',['getPm25Color',['../_ver2_80_8cpp.html#a9a242494fbe3ee1a03fad93ad13d41c5',1,'Ver2.0.cpp']]]
+  ['datalogginghandler_3',['DataLoggingHandler',['../class_data_logging_handler.html',1,'']]],
+  ['datalogginghandler_2ecpp_4',['DataLoggingHandler.cpp',['../_data_logging_handler_8cpp.html',1,'']]],
+  ['drawcenteredtext_5',['drawCenteredText',['../_ver2_80_8cpp.html#a7c342ee13f03ec2d2cc92f82132a772d',1,'Ver2.0.cpp']]]
 ];

@@ -56,7 +56,7 @@ std::map<const char*, double>* sensorData  = new std::map<const char*, double>{
 /**
  * Initialises OTA-Server
  * 
- * Connects to WiFi with specified credentials, initialises an asynchronous webserver and starts ElegentOTA functionality
+ * Initialises an asynchronous webserver and starts ElegentOTA functionality
  */
 void initElegentOTA()
 {
@@ -69,6 +69,13 @@ void initElegentOTA()
   Serial.println("HTTP server started");
 }
 
+
+/**
+ * Connects to WiFi
+ * 
+ * Initialises a WiFi connection with the specified credentials. 
+ * Function will not end until WiFi connection is successfull.
+ */
 void connectWifi()
 {
   WiFi.mode(WIFI_STA);
@@ -179,13 +186,7 @@ long getCO2Color(int co2)
 /**
  * Prints the regular UI and sensor values
  * 
- * @param pm25 The pm2.5 value to print
- * @param pm10 The pm10 value to print
- * @param temperature The temperature value to print
- * @param humidity The humidity value to print
- * @param pressure The pressure value to print
- * @param CO2 The CO2 value to print
- * 
+ * Prints the current sensor values stores in field std::map<const char*, double>* sensorData
  */
 void printRegularDisplay()
 {
@@ -235,13 +236,7 @@ void printRegularDisplay()
 /**
  * Reads sensor values
  * 
- * Reads sensors and assigns the retrieved values to the passed pointers
- * @param pm25 Pointer to a double variable for pm25 values
- * @param pm10 Pointer to a double variable for pm10 values
- * @param temperature Pointer to a double variable for temperature values
- * @param humidity Pointer to a double variable for humidity values
- * @param pressure Pointer to a double variable for pressure values
- * @param CO2 Pointer to an integer variable for CO2 values
+ * Reads sensors and assigns the retrieved values to the corresponding pairs in std::map<const char*
  */
 void readSensors()
 {
@@ -261,9 +256,14 @@ void readSensors()
   
 }
 
+/**
+ * Prints an error display
+ * 
+ * Prints every string in the passed array into a new line on the tft
+ * @param data std::array of 8 string to be printed into seperate lines
+ */
 void printErrorDisplay(std::array<String, 8> data)
 {
-  // Clear screen
   tft.fillScreen(ST7735_BLACK);
   tft.setTextSize(1);
   tft.setTextColor(ST7735_RED);
@@ -273,6 +273,11 @@ void printErrorDisplay(std::array<String, 8> data)
   }
 }
 
+/**
+ * Predefined setup-function
+ * 
+ * Is called once in the beginning of runtime
+ */
 void setup() 
 {
   Serial.begin(9600);
@@ -300,10 +305,14 @@ void setup()
   connectWifi();
   initElegentOTA();
   
-  logger =  new MQTTLogger(AIOSERVER, AIOSERVERPORT, AIOUSERNAME,  AIOKEY);
-  logger->init(sensorData);
+  logger = new MQTTLogger(sensorData);
 }
 
+/**
+ * Predefined loop-function
+ * 
+ * Is called repeatedly during runtime
+ */
 void loop() 
 {
   try

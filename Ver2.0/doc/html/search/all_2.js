@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['initelegentota_4',['initElegentOTA',['../_ver2_80_8cpp.html#ab0f96ce61c8ce9c298570cdba43d5be3',1,'Ver2.0.cpp']]]
+  ['feeds_6',['feeds',['../class_m_q_t_t_logger.html#ace198ac82706488fd756d0eb0497586f',1,'MQTTLogger']]]
 ];

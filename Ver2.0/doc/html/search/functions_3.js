@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['printregulardisplay_14',['printRegularDisplay',['../_ver2_80_8cpp.html#a454400cf140d9c48bdcaf735995a72fd',1,'Ver2.0.cpp']]]
+  ['initelegentota_36',['initElegentOTA',['../_ver2_80_8cpp.html#ab0f96ce61c8ce9c298570cdba43d5be3',1,'Ver2.0.cpp']]]
 ];
