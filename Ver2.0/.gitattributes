@@ -1,1 +1,3 @@
 /doc/* linguist-vendored
+/doc/html/* linguist-vendored
+/doc/html/search/* linguist-vendored
