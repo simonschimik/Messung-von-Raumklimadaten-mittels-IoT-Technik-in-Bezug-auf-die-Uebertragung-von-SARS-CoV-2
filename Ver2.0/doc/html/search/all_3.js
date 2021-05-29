@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['printdisplay_5',['printDisplay',['../_ver2_80_8ino.html#a690ec2ffb32914959c5aeea1956ebb64',1,'Ver2.0.ino']]]
+  ['printregulardisplay_5',['printRegularDisplay',['../_ver2_80_8cpp.html#a454400cf140d9c48bdcaf735995a72fd',1,'Ver2.0.cpp']]]
 ];

@@ -1,9 +1,14 @@
 /**
- * @file Ver2.0.ino
+ * @file Ver2.0.cpp
  * @author Simon Schimik
  * @version 2.0
  */
- 
+
+#include "Arduino.h" 
+#include "config.h"
+#include "DataLoggingHandler.cpp"
+#include "MQTTLogger.cpp"
+
 // TFT-Libraries
 #include <Adafruit_GFX.h>    // Core graphics library
 #include <Adafruit_ST7735.h> // Hardware-specific library for ST7735
@@ -20,31 +25,14 @@
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
 
-// ElegantOTA-Libraries
+// Connectivity
 #include <WiFi.h>
+
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 #include <AsyncElegantOTA.h>
 
-#include "DataLoggingHandler.cpp"
-#include "MQTTLogger.cpp"
 
-// TFT-Pins
-#define TFT_CS 5 
-#define TFT_RST 17                                
-#define TFT_DC 16 
-
-// SDS011-Pins
-#define SDS_RX 25
-#define SDS_TX 26
-
-// MH-Z19C-Pins
-#define MH_TX 32
-#define MH_RX 33
-
-// ElegantOTA-Definitions
-const char* ssid = "XXXX";
-const char* password = "XXXX";
 AsyncWebServer server(80); 
 
 // Sensor-Definitions
@@ -53,8 +41,17 @@ SdsDustSensor sds(SDS_RX, SDS_TX);
 MHZ19 myMHZ19;                                            
 HardwareSerial mhSerial(1); // Use UART channel 1  
 Adafruit_BME280 bme;
+
 DataLoggingHandler* logger;
 
+std::map<const char*, double>* sensorData  = new std::map<const char*, double>{
+  {"temperature", 0.0},
+  {"humidity", 0.0},
+  {"pressure", 0.0},
+  {"pm10", 0.0},
+  {"pm25", 0.0},
+  {"CO2", 0.0}
+};
 
 /**
  * Initialises OTA-Server
@@ -63,21 +60,6 @@ DataLoggingHandler* logger;
  */
 void initElegentOTA()
 {
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, password);
-  Serial.println("");
-
-  // Wait for connection
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("");
-  Serial.print("Connected to ");
-  Serial.println(ssid);
-  Serial.print("IP address: ");
-  Serial.println(WiFi.localIP());
-
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send(200, "text/plain", "Hello");
   });
@@ -87,12 +69,31 @@ void initElegentOTA()
   Serial.println("HTTP server started");
 }
 
+void connectWifi()
+{
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(SSID, PASS);
+  Serial.println("");
+
+  // Wait for connection
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.print("Connected to ");
+  Serial.println(SSID);
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
+
+}
+
 /**
  * Draws centered text on display
  * 
- * @param text: The text to be printed
- * @param x: Width of the screen in which the text is supposed to be centered (f.e. <b> x = tft.width() </b> centers the text on the entire display, <b> x = tft.width()  / 2 </b>  only on the left half of the display)
- * @param y: Y position of the centered text on the display
+ * @param text The text to be printed
+ * @param x Width of the screen in which the text is supposed to be centered (f.e. <b> x = tft.width() </b> centers the text on the entire display, <b> x = tft.width()  / 2 </b>  only on the left half of the display)
+ * @param y Y position of the centered text on the display
  */
 void drawCenteredText(String text, int x, int y)
 {
@@ -107,7 +108,7 @@ void drawCenteredText(String text, int x, int y)
  * Returns a color based on the parameter pm10
  * 
  * Returns a color for better visualisation on the display of the pm10 value
- * @param pm10: The pm10 value
+ * @param pm10 The pm10 value
  * @return Returns a 16-bit hexadecimal representation of the corrosponding color
  */
 long getPm10Color(double pm10)
@@ -131,7 +132,7 @@ long getPm10Color(double pm10)
  * Returns a color based on the parameter pm25
  * 
  * Returns a color for better visualisation on the display of the pm2.5 value
- * @param pm25: The pm2.5 value
+ * @param pm25 The pm2.5 value
  * @return Returns a 16-bit hexadecimal representation of the corrosponding color
  */
 long getPm25Color(double pm25)
@@ -155,7 +156,7 @@ long getPm25Color(double pm25)
  * Returns a color based on the parameter co2
  * 
  * Returns a color for better visualisation on the display of the co2 value
- * @param co2: The co2 value
+ * @param co2 The co2 value
  * @return Returns a 16-bit hexadecimal representation of the corrosponding color
  */
 long getCO2Color(int co2)
@@ -176,17 +177,17 @@ long getCO2Color(int co2)
 }
 
 /**
- * Prints the UI and sensor values
+ * Prints the regular UI and sensor values
  * 
- * @param pm25: The pm2.5 value to print
- * @param pm10: The pm10 value to print
- * @param temperature: The temperature value to print
- * @param humidity: The humidity value to print
- * @param pressure: The pressure value to print
- *  @param CO2: The CO2 value to print
+ * @param pm25 The pm2.5 value to print
+ * @param pm10 The pm10 value to print
+ * @param temperature The temperature value to print
+ * @param humidity The humidity value to print
+ * @param pressure The pressure value to print
+ * @param CO2 The CO2 value to print
  * 
  */
-void printDisplay(const double pm25, const double pm10, const double temperature, const double humidity, const double pressure, const int CO2)
+void printRegularDisplay()
 {
   // Clear screen
   tft.fillScreen(ST7735_BLACK);
@@ -209,6 +210,7 @@ void printDisplay(const double pm25, const double pm10, const double temperature
   drawCenteredText("Humidity", tft.width(), 25);
   drawCenteredText("Pressure", tft.width(), 45);
   drawCenteredText("CO2-Concentration", tft.width(), tft.height()*5/12 + 2);
+  drawCenteredText("ppm", tft.width(), tft.height()*5/12 + 30);
   drawCenteredText("PM10", tft.width()/2+2, tft.height()*2/3+2);
   drawCenteredText("PM2.5", tft.width()*3/2+2, tft.height()*2/3+2);
   drawCenteredText("um_g/m^3", tft.width() / 2, tft.height()*2/3+43);
@@ -217,46 +219,58 @@ void printDisplay(const double pm25, const double pm10, const double temperature
   // Draw sensor values
   tft.setTextSize(1);
   tft.setTextColor(ST7735_BLUE);
-  drawCenteredText(String(temperature) + " C", tft.width(), 15);
-  drawCenteredText(String(humidity) + " %", tft.width(), 35);
-  drawCenteredText(String(pressure) + " hPa", tft.width(), 55);
+  drawCenteredText(String(sensorData->at("temperature")) + " C", tft.width(), 15);
+  drawCenteredText(String(sensorData->at("humidity")) + " %", tft.width(), 35);
+  drawCenteredText(String(sensorData->at("pressure")) + " hPa", tft.width(), 55);
 
   tft.setTextSize(2);
-  tft.setTextColor(getCO2Color(CO2));
-  drawCenteredText(String(CO2), tft.width(), tft.height()*5/12 + 17);
-  tft.setTextColor(getPm10Color(pm10));
-  drawCenteredText(String((int)pm10), tft.width() / 2, tft.height()*2/3+17);
-  tft.setTextColor(getPm25Color(pm25));
-  drawCenteredText(String((int)pm25), tft.width() * 3/2, tft.height()*2/3+17);
+  tft.setTextColor(getCO2Color(sensorData->at("CO2")));
+  drawCenteredText(String((int)sensorData->at("CO2")), tft.width(), tft.height()*5/12 + 13);
+  tft.setTextColor(getPm10Color(sensorData->at("pm10")));
+  drawCenteredText(String(sensorData->at("pm10")), tft.width() / 2, tft.height()*2/3+17);
+  tft.setTextColor(getPm25Color(sensorData->at("pm25")));
+  drawCenteredText(String(sensorData->at("pm25")), tft.width() * 3/2, tft.height()*2/3+17);
 }
 
 /**
  * Reads sensor values
  * 
  * Reads sensors and assigns the retrieved values to the passed pointers
- * @param pm25: Pointer to a double variable for pm25 values
- * @param pm10: Pointer to a double variable for pm10 values
- * @param temperature: Pointer to a double variable for temperature values
- * @param humidity: Pointer to a double variable for humidity values
- * @param pressure: Pointer to a double variable for pressure values
- * @param CO2: Pointer to an integer variable for CO2 values
+ * @param pm25 Pointer to a double variable for pm25 values
+ * @param pm10 Pointer to a double variable for pm10 values
+ * @param temperature Pointer to a double variable for temperature values
+ * @param humidity Pointer to a double variable for humidity values
+ * @param pressure Pointer to a double variable for pressure values
+ * @param CO2 Pointer to an integer variable for CO2 values
  */
-void readSensors(double* const pm25, double* const pm10, double* const temperature, double* const humidity, double* const pressure, int* const CO2)
+void readSensors()
 {
   PmResult sds_results = sds.queryPm();
   if (sds_results.isOk()){
-    *pm25 = sds_results.pm25;
-    *pm10 = sds_results.pm10;
+    sensorData->at("pm25") = sds_results.pm25;
+    sensorData->at("pm10") = sds_results.pm10;
   } else {
-    *pm25 = -1;
-    *pm10 = -1;
+    sensorData->at("pm25") = -1;
+    sensorData->at("pm10") = -1;
   }
+  
+  sensorData->at("CO2") = myMHZ19.getCO2();
+  sensorData->at("temperature") = bme.readTemperature();
+  sensorData->at("humidity") = bme.readHumidity();
+  sensorData->at("pressure") = bme.readPressure() / 100.0;
+  
+}
 
-  *CO2 = myMHZ19.getCO2();
-
-  *temperature = bme.readTemperature();
-  *humidity = bme.readHumidity();
-  *pressure = bme.readPressure() / 100.0;
+void printErrorDisplay(std::array<String, 8> data)
+{
+  // Clear screen
+  tft.fillScreen(ST7735_BLACK);
+  tft.setTextSize(1);
+  tft.setTextColor(ST7735_RED);
+  for(int i = 0; i < 8; i++)
+  {
+    drawCenteredText(data[i], tft.width(), 5 + i*20);
+  }
 }
 
 void setup() 
@@ -283,20 +297,29 @@ void setup()
   // Init BME280
   bme.begin(0x76);
 
+  connectWifi();
   initElegentOTA();
-  logger =  new MQTTLogger( "io.adafruit.com", 1883, "XXXX",  "XXXX");
-  logger->init();
+  
+  logger =  new MQTTLogger(AIOSERVER, AIOSERVERPORT, AIOUSERNAME,  AIOKEY);
+  logger->init(sensorData);
 }
 
 void loop() 
 {
-  delay(15000); // TODO
-
-  double pm25, pm10, temperature, humidity, pressure;
-  int CO2;
-  
- readSensors(&pm25, &pm10, &temperature, &humidity, &pressure, &CO2);
- printDisplay(pm25, pm10, temperature, humidity, pressure, CO2);
- logger->log(pm25, pm10, temperature, humidity, pressure, CO2);
-  //AsyncElegantOTA.loop();
+  try
+  {
+    readSensors();
+    logger->log(sensorData);
+    printRegularDisplay();
+  }catch(MQTTConnectionFailedException& e)
+  {
+    printErrorDisplay({"Couldn't connect", "to MQTT-Broker" ,"IP: " + WiFi.localIP().toString(), "Host: " + String(WiFi.getHostname()), 
+                        "WiFi connected: " + String(WiFi.isConnected()), "Retrying in " + String(LOOPDELAY/1000) + "s", AIOSERVER, AIOUSERNAME});
+  }catch(WifiNotConnectedException& e)
+  {
+    printErrorDisplay({"WiFi connection lost!", "Reconnecting..."});
+    connectWifi();
+  }
+  AsyncElegantOTA.loop();
+  delay(LOOPDELAY); //TODO
 }
