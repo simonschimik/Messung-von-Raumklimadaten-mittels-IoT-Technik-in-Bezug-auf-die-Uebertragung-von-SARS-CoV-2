@@ -1,1 +1,1 @@
-doc/ linguist-detectable=false
+/doc/* linguist-vendored
