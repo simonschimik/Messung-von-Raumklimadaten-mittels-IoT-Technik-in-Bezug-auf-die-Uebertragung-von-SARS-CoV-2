@@ -34,15 +34,13 @@
 
 
 AsyncWebServer server(80); 
-
-// Sensor-Definitions
-Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
+Adafruit_ST7735 tft(TFT_CS, TFT_DC, TFT_RST);
 SdsDustSensor sds(SDS_RX, SDS_TX);
 MHZ19 myMHZ19;                                            
 HardwareSerial mhSerial(1); // Use UART channel 1  
 Adafruit_BME280 bme;
-
 DataLoggingHandler* logger;
+int timer;
 
 std::map<const char*, double>* sensorData  = new std::map<const char*, double>{
   {"temperature", 0.0},
@@ -60,13 +58,15 @@ std::map<const char*, double>* sensorData  = new std::map<const char*, double>{
  */
 void initElegentOTA()
 {
+  Serial.println("Initialising OTA-server!");
+
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
     request->send(200, "text/plain", "Hello");
   });
-
   AsyncElegantOTA.begin(&server);
   server.begin();
-  Serial.println("HTTP server started");
+
+  Serial.println("OTA-server server started");
 }
 
 
@@ -74,25 +74,22 @@ void initElegentOTA()
  * Connects to WiFi
  * 
  * Initialises a WiFi connection with the specified credentials. 
- * Function will not end until WiFi connection is successfull.
+ * Function will not terminate until WiFi connection is successfull.
  */
 void connectWifi()
 {
+  Serial.print("Connecting to WiFi " + String(SSID));
   WiFi.mode(WIFI_STA);
   WiFi.begin(SSID, PASS);
-  Serial.println("");
 
   // Wait for connection
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
   }
-  Serial.println("");
-  Serial.print("Connected to ");
-  Serial.println(SSID);
+  Serial.println("\nWiFi-connection successfull!");
   Serial.print("IP address: ");
-  Serial.println(WiFi.localIP());
-
+  Serial.println(WiFi.localIP().toString());
 }
 
 /**
@@ -120,19 +117,12 @@ void drawCenteredText(String text, int x, int y)
  */
 long getPm10Color(double pm10)
 {
-  if(pm10 <= 50){
-    return ST7735_CYAN;
-  }else if(pm10 <= 100){
-    return ST7735_GREEN;
-  }else if(pm10 <= 250){
-    return ST7735_YELLOW;
-  }else if(pm10 <= 350){
-    return ST7735_ORANGE;
-  }else if(pm10 <= 430){
-    return ST7735_RED;
-  }else{
-    return ST7735_PURPLE;
-  }
+  if(pm10 <= 50) return ST7735_CYAN;
+  else if(pm10 <= 100) return ST7735_GREEN;
+  else if(pm10 <= 250) return ST7735_YELLOW;
+  else if(pm10 <= 350) return ST7735_ORANGE;
+  else if(pm10 <= 430) return ST7735_RED;
+  else return ST7735_PURPLE;
 }
 
 /**
@@ -144,19 +134,12 @@ long getPm10Color(double pm10)
  */
 long getPm25Color(double pm25)
 {
-  if(pm25 <= 30){
-    return ST7735_CYAN;
-  }else if(pm25 <= 60){
-    return ST7735_GREEN;
-  }else if(pm25 <= 90){
-    return ST7735_YELLOW;
-  }else if(pm25 <= 120){
-    return ST7735_ORANGE;
-  }else if(pm25 <= 250){
-    return ST7735_RED;
-  }else{
-    return ST7735_PURPLE;
-  }
+  if(pm25 <= 30) return ST7735_CYAN;
+  else if(pm25 <= 60) return ST7735_GREEN;
+  else if(pm25 <= 90) return ST7735_YELLOW;
+  else if(pm25 <= 120) return ST7735_ORANGE;
+  else if(pm25 <= 250) return ST7735_RED;
+  else return ST7735_PURPLE;
 }
 
 /**
@@ -166,21 +149,14 @@ long getPm25Color(double pm25)
  * @param co2 The co2 value
  * @return Returns a 16-bit hexadecimal representation of the corrosponding color
  */
-long getCO2Color(int co2)
+long getCO2Color(double co2)
 {
-  if(co2 <= 650){
-    return ST7735_CYAN;
-  }else if(co2 <= 950){
-    return ST7735_GREEN;
-  }else if(co2 <= 1250){
-    return ST7735_YELLOW;
-  }else if(co2 <= 1500){
-    return ST7735_ORANGE;
-  }else if(co2 <= 1850){
-    return ST7735_RED;
-  }else{
-    return ST7735_PURPLE;
-  }
+  if(co2 <= 650) return ST7735_CYAN;
+  else if(co2 <= 950) return ST7735_GREEN;
+  else if(co2 <= 1250) return ST7735_YELLOW;
+  else if(co2 <= 1500) return ST7735_ORANGE;
+  else if(co2 <= 1850) return ST7735_RED;
+  else return ST7735_PURPLE;
 }
 
 /**
@@ -234,6 +210,23 @@ void printRegularDisplay()
 }
 
 /**
+ * Prints an error display
+ * 
+ * Prints every string in the passed array into a new line on the tft
+ * @param data std::array of 8 string to be printed into seperate lines
+ */
+void printErrorDisplay(std::array<String, 8> data)
+{
+  tft.fillScreen(ST7735_BLACK);
+  tft.setTextSize(1);
+  tft.setTextColor(ST7735_RED);
+  for(int i = 0; i < 8; i++)
+  {
+    drawCenteredText(data[i], tft.width(), 5 + i*20);
+  }
+}
+
+/**
  * Reads sensor values
  * 
  * Reads sensors and assigns the retrieved values to the corresponding pairs in std::map<const char*
@@ -256,22 +249,6 @@ void readSensors()
   
 }
 
-/**
- * Prints an error display
- * 
- * Prints every string in the passed array into a new line on the tft
- * @param data std::array of 8 string to be printed into seperate lines
- */
-void printErrorDisplay(std::array<String, 8> data)
-{
-  tft.fillScreen(ST7735_BLACK);
-  tft.setTextSize(1);
-  tft.setTextColor(ST7735_RED);
-  for(int i = 0; i < 8; i++)
-  {
-    drawCenteredText(data[i], tft.width(), 5 + i*20);
-  }
-}
 
 /**
  * Predefined setup-function
@@ -290,6 +267,7 @@ void setup()
 
   // Init SDS
   sds.begin();
+  // TODO Error display
   Serial.println(sds.queryFirmwareVersion().toString()); // prints firmware version
   Serial.println(sds.setQueryReportingMode().toString()); // ensures sensor is in 'query' reporting mode
   sds.wakeup();
@@ -306,6 +284,7 @@ void setup()
   initElegentOTA();
   
   logger = new MQTTLogger(sensorData);
+  timer = 0;
 }
 
 /**
@@ -313,22 +292,35 @@ void setup()
  * 
  * Is called repeatedly during runtime
  */
-void loop() 
+void loop()
 {
-  try
+  if(timer == LOOPDELAY)
   {
-    readSensors();
-    logger->log(sensorData);
-    printRegularDisplay();
-  }catch(MQTTConnectionFailedException& e)
-  {
-    printErrorDisplay({"Couldn't connect", "to MQTT-Broker" ,"IP: " + WiFi.localIP().toString(), "Host: " + String(WiFi.getHostname()), 
-                        "WiFi connected: " + String(WiFi.isConnected()), "Retrying in " + String(LOOPDELAY/1000) + "s", AIOSERVER, AIOUSERNAME});
-  }catch(WifiNotConnectedException& e)
-  {
-    printErrorDisplay({"WiFi connection lost!", "Reconnecting..."});
-    connectWifi();
+    timer = 0;
+    try
+    {
+      readSensors();
+      logger->log(sensorData);
+      printRegularDisplay();
+    }catch(MQTTConnectionFailedException& e)
+    {
+      Serial.println("An exception occurred: " + String(e.what()));
+      printErrorDisplay({"Couldn't connect", "to MQTT-Broker" ,"IP: " + WiFi.localIP().toString(), "Host: " + String(WiFi.getHostname()), 
+                          "WiFi connected: " + String(WiFi.isConnected()), "Retrying in " + String(LOOPDELAY/1000) + "s", AIOSERVER, AIOUSERNAME});
+    }catch(WifiNotConnectedException& e) 
+    {
+      Serial.println("An exception occurred: " + String(e.what()));
+      printErrorDisplay({"WiFi connection lost!", "Reconnecting..."});
+      connectWifi();
+    }
   }
+
+  /**
+   * The AsyncElegantOTA.loop() statement must be called repeatedly throughout the loop function. Pausing the loop function directly by delay(LOOPDELAY)
+   * would cause unpredictable errors from the OTA-service, hence the AsyncElegantOTA.loop() statement would be called in a very long time period.
+   * Therefore, the loop is only paused for 1ms, and instead the counter-var 'timer' is introduced.
+   */
+
   AsyncElegantOTA.loop();
-  delay(LOOPDELAY); //TODO
+  delay(1); timer++;
 }

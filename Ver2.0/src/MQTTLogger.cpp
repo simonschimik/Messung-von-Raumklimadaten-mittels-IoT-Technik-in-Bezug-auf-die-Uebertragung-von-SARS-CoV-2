@@ -9,6 +9,7 @@
 #include "config.h"
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
+#include <exception>
 
 /**
  * Exception thrown if no WiFi connection is available
@@ -40,7 +41,7 @@ class MQTTLogger : public DataLoggingHandler
   private:
     WiFiClient wifiClient;
     Adafruit_MQTT_Client* mqttClient;
-    
+
     /** Pointer to a std::map storing MQTT-feeds */
     std::map<String, Adafruit_MQTT_Publish>* feeds;
 

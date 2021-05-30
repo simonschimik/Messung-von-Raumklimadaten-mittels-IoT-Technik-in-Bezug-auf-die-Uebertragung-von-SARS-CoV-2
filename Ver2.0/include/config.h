@@ -4,13 +4,12 @@
  * @version 2.0
  */
 
-// Arduino Core
+// Arduino Core-libraries
 #include "Arduino.h"
 #include <Wifi.h>
 
 // C++-Standard-libraries
 #include <map>
-#include <exception>
 
 // TFT-Pins
 #define TFT_CS 5 
