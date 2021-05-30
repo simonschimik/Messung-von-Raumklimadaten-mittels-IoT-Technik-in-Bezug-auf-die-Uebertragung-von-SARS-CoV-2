@@ -1,7 +1,7 @@
 /**
  * @file MQTTLogger.cpp
  * @author Simon Schimik
- * @version 2.0
+ * @version 1.0
  */
 
 #include "DataLoggingHandler.cpp"
@@ -64,7 +64,7 @@ class MQTTLogger : public DataLoggingHandler
     
   public:
     /**
-     * Initiales MQTTLogger
+     * Initialises MQTTLogger
      * 
      * Initiales mqttClient and feeds
      * Copies the passed sensorData map and keeps the keys, but changes the values to be Adafruit_MQTT_Publish's 

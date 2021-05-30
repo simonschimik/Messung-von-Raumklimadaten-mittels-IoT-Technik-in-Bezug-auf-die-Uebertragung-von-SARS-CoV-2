@@ -1,7 +1,7 @@
 /**
  * @file DataLoggingHandler.cpp
  * @author Simon Schimik
- * @version 2.0
+ * @version 1.0
  */
 
 #pragma once
