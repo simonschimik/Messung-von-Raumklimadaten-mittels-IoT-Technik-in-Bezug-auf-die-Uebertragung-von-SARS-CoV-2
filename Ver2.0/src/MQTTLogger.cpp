@@ -53,8 +53,12 @@ class MQTTLogger : public DataLoggingHandler
       if(WiFi.status() != WL_CONNECTED) throw WifiNotConnectedException("WiFi not connected!");
       if(mqttClient->connected()) return;
       
+      uint8_t reconnectCount = 0;
       Serial.print("Connecting to MQTT… ");
-      if(mqttClient->connect() != 0) throw MQTTConnectionFailedException("Couldn't connect to MQTT-Broker"); // connect will return 0 for connected
+      while(mqttClient->connect() != 0){ // connect will return 0 for connected
+        Serial.print(".");
+        if(++reconnectCount > MQTT_CONNECT_LIMIT)throw MQTTConnectionFailedException("Couldn't connect to MQTT-Broker!"); 
+      } 
       Serial.println("MQTT Connected!");
 
     }

@@ -40,7 +40,7 @@ MHZ19 myMHZ19;
 HardwareSerial mhSerial(1); // Use UART channel 1  
 Adafruit_BME280 bme;
 DataLoggingHandler* logger;
-int timer;
+uint32_t timer;
 
 std::map<const char*, double>* sensorData  = new std::map<const char*, double>{
   {"temperature", 0.0},
@@ -81,11 +81,13 @@ void connectWifi()
   Serial.print("Connecting to WiFi " + String(SSID));
   WiFi.mode(WIFI_STA);
   WiFi.begin(SSID, PASS);
+  uint8_t reconnectCount = 0;
 
   // Wait for connection
   while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
+    delay(1000);
     Serial.print(".");
+    if(++reconnectCount > WIFI_CONNECT_LIMIT) ESP.restart();
   }
   Serial.println("\nWiFi-connection successfull!");
   Serial.print("IP address: ");
@@ -99,7 +101,7 @@ void connectWifi()
  * @param x Width of the screen in which the text is supposed to be centered (f.e. <b> x = tft.width() </b> centers the text on the entire display, <b> x = tft.width()  / 2 </b>  only on the left half of the display)
  * @param y Y position of the centered text on the display
  */
-void drawCenteredText(String text, int x, int y)
+void drawCenteredText(String text, uint8_t x, uint8_t y)
 {
   int16_t x1, y1;
   uint16_t w, h;
@@ -115,7 +117,7 @@ void drawCenteredText(String text, int x, int y)
  * @param pm10 The pm10 value
  * @return Returns a 16-bit hexadecimal representation of the corrosponding color
  */
-long getPm10Color(double pm10)
+uint16_t getPm10Color(double pm10)
 {
   if(pm10 <= 50) return ST7735_CYAN;
   else if(pm10 <= 100) return ST7735_GREEN;
@@ -132,7 +134,7 @@ long getPm10Color(double pm10)
  * @param pm25 The pm2.5 value
  * @return Returns a 16-bit hexadecimal representation of the corrosponding color
  */
-long getPm25Color(double pm25)
+uint16_t getPm25Color(double pm25)
 {
   if(pm25 <= 30) return ST7735_CYAN;
   else if(pm25 <= 60) return ST7735_GREEN;
@@ -149,7 +151,7 @@ long getPm25Color(double pm25)
  * @param co2 The co2 value
  * @return Returns a 16-bit hexadecimal representation of the corrosponding color
  */
-long getCO2Color(double co2)
+uint16_t getCO2Color(double co2)
 {
   if(co2 <= 650) return ST7735_CYAN;
   else if(co2 <= 950) return ST7735_GREEN;
@@ -220,7 +222,7 @@ void printErrorDisplay(std::array<String, 8> data)
   tft.fillScreen(ST7735_BLACK);
   tft.setTextSize(1);
   tft.setTextColor(ST7735_RED);
-  for(int i = 0; i < 8; i++)
+  for(uint8_t i = 0; i < 8; i++)
   {
     drawCenteredText(data[i], tft.width(), 5 + i*20);
   }
@@ -306,7 +308,9 @@ void loop()
     {
       Serial.println("An exception occurred: " + String(e.what()));
       printErrorDisplay({"Couldn't connect", "to MQTT-Broker" ,"IP: " + WiFi.localIP().toString(), "Host: " + String(WiFi.getHostname()), 
-                          "WiFi connected: " + String(WiFi.isConnected()), "Retrying in " + String(LOOPDELAY/1000) + "s", AIOSERVER, AIOUSERNAME});
+                          "WiFi connected: " + String(WiFi.isConnected()), "Reset in " + String(LOOPDELAY/1000) + "s", AIOSERVER, AIOUSERNAME});
+      delay(LOOPDELAY);
+      ESP.restart();
     }catch(WifiNotConnectedException& e) 
     {
       Serial.println("An exception occurred: " + String(e.what()));

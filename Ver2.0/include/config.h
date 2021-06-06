@@ -27,8 +27,14 @@
 #define SSID ""
 #define PASS ""
 
-#define AIOSERVER "io.adafruit.com"
+#define AIOSERVER "io.adafruits.com"
 #define AIOSERVERPORT 1883
 #define AIOUSERNAME ""
 #define AIOKEY ""
 #define LOOPDELAY 15000
+
+/** Defines limit for the WiFi-reconnect-count until ESP reset*/
+#define WIFI_CONNECT_LIMIT 30
+
+/** Defines limit for the MQTT-reconnect-count until ESP reset*/
+#define MQTT_CONNECT_LIMIT 30
