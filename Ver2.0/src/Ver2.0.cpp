@@ -283,7 +283,7 @@ void setup()
   connectWifi();
   initElegentOTA();
   
-  logger = new MQTTLogger(sensorData);
+  logger = new MQTTLogger();
   timer = 0;
 }
 

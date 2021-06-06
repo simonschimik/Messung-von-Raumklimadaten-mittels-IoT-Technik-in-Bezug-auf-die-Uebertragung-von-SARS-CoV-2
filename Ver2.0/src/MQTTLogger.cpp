@@ -25,7 +25,7 @@ struct WifiNotConnectedException : public std::runtime_error
 /**
  * Exception thrown if problems with the MQTT connection occur
  * 
- * Thrown either if connection to broker or publishing to a feed failed
+ * Thrown if connection to broker failed
  */
 struct MQTTConnectionFailedException : public std::runtime_error
 {
@@ -41,9 +41,6 @@ class MQTTLogger : public DataLoggingHandler
   private:
     WiFiClient wifiClient;
     Adafruit_MQTT_Client* mqttClient;
-
-    /** Pointer to a std::map storing MQTT-feeds */
-    std::map<String, Adafruit_MQTT_Publish>* feeds;
 
     /**
      * Connects to MQTT-Broker, if not already connected
@@ -65,36 +62,36 @@ class MQTTLogger : public DataLoggingHandler
   public:
     /**
      * Initialises MQTTLogger
-     * 
-     * Initiales mqttClient and feeds
-     * Copies the passed sensorData map and keeps the keys, but changes the values to be Adafruit_MQTT_Publish's 
-     * The general idea behind this is that the MQTT-feeds are creating using the keys of sensorData and that they can be accessed using the same keys
-     * @param sensorData std::map used to initialise the std::map feeds and the Adafruit_MQTT_Publish's
      */
-    MQTTLogger(const std::map<const char*, double>* sensorData){
-      
+    MQTTLogger(){
       mqttClient = new Adafruit_MQTT_Client(&wifiClient, AIOSERVER, AIOSERVERPORT, AIOUSERNAME, AIOKEY);
-      feeds = new std::map<String, Adafruit_MQTT_Publish>;
-
-      for(auto const& iter : *sensorData)
-      {
-        feeds->insert({iter.first, Adafruit_MQTT_Publish(mqttClient, (String(AIOUSERNAME) + "/feeds/" + String(iter.first)).c_str() )});
-      }
     }
 
     /**
      * Publishes the current sensor values 
      * 
      * @exception WiFiNotConnectedException Thrown if no WiFi connection available
-     * @exception MQTTConnectionFailed Thrown if connecting to broker failed or publish to a feed failed
+     * @exception MQTTConnectionFailed Thrown if connecting to broker failed
      * @param sensorData the sensor values to be published
      */
     void log(const std::map<const char*, double>* sensorData)
     {
-      connectMQTT();
       for(auto const& iter : *sensorData)
       {
-        if(!feeds->at(iter.first).publish(iter.second)) throw MQTTConnectionFailedException("Publishing to a feed failed!");
+        
+        char* feed = (char*) malloc(strlen(AIOUSERNAME) + strlen("/feeds/") + strlen(iter.first) + 1);
+        strcpy(feed, AIOUSERNAME);
+        strcat(feed, "/feeds/");
+        strcat(feed, iter.first);
+
+        char* payload = (char*) malloc(41); // TODO
+        dtostrf(iter.second, 0, 2, payload);
+
+        connectMQTT();
+        mqttClient->publish(feed, payload, 0);
+
+        free(feed);
+        free(payload);
       }
     }
 };
