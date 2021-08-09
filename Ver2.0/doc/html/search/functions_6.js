@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['printerrordisplay_40',['printErrorDisplay',['../_ver2_80_8cpp.html#a7efd85c341e929bbf79efb5f8de4e04e',1,'Ver2.0.cpp']]],
-  ['printregulardisplay_41',['printRegularDisplay',['../_ver2_80_8cpp.html#a454400cf140d9c48bdcaf735995a72fd',1,'Ver2.0.cpp']]]
+  ['mhserial_82',['mhSerial',['../d0/d9b/_ver2_80_8cpp.html#a2a97c70eca86bd7a7825f7b5ba53cdf7',1,'Ver2.0.cpp']]],
+  ['mqttlogger_83',['MQTTLogger',['../d8/de0/class_m_q_t_t_logger.html#aec16a59a33d813dc07a4fa6e41c1c5d0',1,'MQTTLogger']]]
 ];

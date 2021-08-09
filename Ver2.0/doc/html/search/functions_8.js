@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['setup_43',['setup',['../_ver2_80_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d',1,'Ver2.0.cpp']]]
+  ['readsensors_86',['readSensors',['../d0/d9b/_ver2_80_8cpp.html#ad40ccf803c2eff76d7e0e7a24c9937ef',1,'Ver2.0.cpp']]]
 ];

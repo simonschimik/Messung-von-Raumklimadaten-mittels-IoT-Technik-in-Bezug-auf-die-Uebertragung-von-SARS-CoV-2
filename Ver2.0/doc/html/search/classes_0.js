@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['datalogginghandler_22',['DataLoggingHandler',['../class_data_logging_handler.html',1,'']]]
+  ['httplogger_58',['HTTPLogger',['../d8/d7d/class_h_t_t_p_logger.html',1,'']]]
 ];

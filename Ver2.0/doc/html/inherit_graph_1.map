@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" title=" " alt="" coords="5,31,129,57"/>
+<area shape="rect" id="node2" href="$dc/d67/struct_logger_exception.html" title="Exception thrown if any various errors occur during logging." alt="" coords="210,5,329,32"/>
+<area shape="rect" id="node3" href="$d7/d77/struct_wifi_not_connected_exception.html" title="Exception thrown if no WiFi connection is available." alt="" coords="177,56,361,83"/>
+</map>

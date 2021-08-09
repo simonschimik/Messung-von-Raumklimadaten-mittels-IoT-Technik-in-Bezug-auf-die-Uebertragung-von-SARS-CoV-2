@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['initelegentota_10',['initElegentOTA',['../_ver2_80_8cpp.html#ab0f96ce61c8ce9c298570cdba43d5be3',1,'Ver2.0.cpp']]]
+  ['error_9',['error',['../dc/d67/struct_logger_exception.html#abc0cb9de7e5c5b021159ca67daab88c2',1,'LoggerException']]]
 ];

@@ -17,6 +17,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -82,16 +83,73 @@ $(document).ready(function(){initNavTree('config_8h.html',''); initResizable(); 
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a>  </div>
   <div class="headertitle">
 <div class="title">config.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
+<div class="textblock"><div class="dynheader">
+Include dependency graph for config.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="config_8h__incl.png" border="0" usemap="#ainclude_2config_8h" alt=""/></div>
+<map name="ainclude_2config_8h" id="ainclude_2config_8h">
+<area shape="rect" title=" " alt="" coords="79,5,191,32"/>
+<area shape="rect" title=" " alt="" coords="5,80,83,107"/>
+<area shape="rect" title=" " alt="" coords="107,80,162,107"/>
+<area shape="rect" title=" " alt="" coords="186,80,233,107"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="config_8h__dep__incl.png" border="0" usemap="#ainclude_2config_8hdep" alt=""/></div>
+<map name="ainclude_2config_8hdep" id="ainclude_2config_8hdep">
+<area shape="rect" title=" " alt="" coords="64,5,176,32"/>
+<area shape="rect" href="_ver2_80_8cpp.html" title=" " alt="" coords="26,229,133,256"/>
+<area shape="rect" href="_data_logging_handler_8cpp.html" title=" " alt="" coords="27,80,212,107"/>
+<area shape="rect" href="_m_q_t_t_logger_8cpp.html" title=" " alt="" coords="118,155,260,181"/>
+</map>
+</div>
+</div>
 <p><a href="config_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:acab7512bbbb62bedbbbdfb12230c5ba3"><td class="memItemLeft" align="right" valign="top"><a id="acab7512bbbb62bedbbbdfb12230c5ba3"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#acab7512bbbb62bedbbbdfb12230c5ba3">WIFI_CONNECT_LIMIT</a>&#160;&#160;&#160;30</td></tr>
+<tr class="memdesc:acab7512bbbb62bedbbbdfb12230c5ba3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines limit for the WiFi-reconnect-count until ESP reset. <br /></td></tr>
+<tr class="separator:acab7512bbbb62bedbbbdfb12230c5ba3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac145ffcbfe4c25135f355deabe0f6e12"><td class="memItemLeft" align="right" valign="top"><a id="ac145ffcbfe4c25135f355deabe0f6e12"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#ac145ffcbfe4c25135f355deabe0f6e12">MQTT_CONNECT_LIMIT</a>&#160;&#160;&#160;30</td></tr>
+<tr class="memdesc:ac145ffcbfe4c25135f355deabe0f6e12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines limit for the MQTT-reconnect-count until ESP reset. <br /></td></tr>
+<tr class="separator:ac145ffcbfe4c25135f355deabe0f6e12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7efe6266667c0b6c6f967422701a63d4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config_8h.html#a7efe6266667c0b6c6f967422701a63d4">SDS_PREHEAT_THRESHOLD</a>&#160;&#160;&#160;0.5</td></tr>
+<tr class="memdesc:a7efe6266667c0b6c6f967422701a63d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines a threshold for SDS011-sensor values variation during preheating.  <a href="config_8h.html#a7efe6266667c0b6c6f967422701a63d4">More...</a><br /></td></tr>
+<tr class="separator:a7efe6266667c0b6c6f967422701a63d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Simon Schimik </dd></dl>
-<dl class="section version"><dt>Version</dt><dd>2.0 </dd></dl>
-</div></div><!-- contents -->
+<dl class="section version"><dt>Version</dt><dd>1.0 </dd></dl>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a7efe6266667c0b6c6f967422701a63d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7efe6266667c0b6c6f967422701a63d4">&#9670;&nbsp;</a></span>SDS_PREHEAT_THRESHOLD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SDS_PREHEAT_THRESHOLD&#160;&#160;&#160;0.5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines a threshold for SDS011-sensor values variation during preheating. </p>
+<p>SDS011-Preheating will only succeed once two sensor readings taken after another do not vary by more than this amount </p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

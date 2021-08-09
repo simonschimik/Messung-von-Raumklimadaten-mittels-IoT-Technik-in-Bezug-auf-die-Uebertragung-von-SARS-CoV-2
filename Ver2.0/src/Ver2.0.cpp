@@ -6,32 +6,13 @@
 
 #include "Arduino.h" 
 #include "config.h"
-#include "DataLoggingHandler.cpp"
+#include "Logger.h"
 #include "MQTTLogger.cpp"
-
-// TFT-Libraries
-#include <Adafruit_GFX.h>    // Core graphics library
-#include <Adafruit_ST7735.h> // Hardware-specific library for ST7735
-#include <SPI.h>
-
-// SDS011-Library
-#include <SdsDustSensor.h>
-
-// MH-Z19C-Library
-#include "MHZ19.h"     
-
-// BME280-Libraries
-#include <Wire.h>
-#include <Adafruit_Sensor.h>
-#include <Adafruit_BME280.h>
-
-// Connectivity
-#include <WiFi.h>
+#include "HTTPLogger.cpp"
 
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 #include <AsyncElegantOTA.h>
-
 
 AsyncWebServer server(80); 
 Adafruit_ST7735 tft(TFT_CS, TFT_DC, TFT_RST);
@@ -39,9 +20,14 @@ SdsDustSensor sds(SDS_RX, SDS_TX);
 MHZ19 myMHZ19;                                            
 HardwareSerial mhSerial(1); // Use UART channel 1  
 Adafruit_BME280 bme;
-DataLoggingHandler* logger;
+Logger* logger;
 uint32_t timer;
 
+/**
+ * std::map containing sensor values.
+ * 
+ * std::map containing sensor values, the keys for the respective sensor values are reused as feed names for MQTTLogger.
+ */
 std::map<const char*, double>* sensorData  = new std::map<const char*, double>{
   {"temperature", 0.0},
   {"humidity", 0.0},
@@ -52,9 +38,9 @@ std::map<const char*, double>* sensorData  = new std::map<const char*, double>{
 };
 
 /**
- * Initialises OTA-Server
+ * Initialises OTA-Server.
  * 
- * Initialises an asynchronous webserver and starts ElegentOTA functionality
+ * Initialises an asynchronous webserver and starts ElegentOTA functionality.
  */
 void initElegentOTA()
 {
@@ -71,7 +57,7 @@ void initElegentOTA()
 
 
 /**
- * Connects to WiFi
+ * Connects to WiFi.
  * 
  * Initialises a WiFi connection with the specified credentials. 
  * Function will not terminate until WiFi connection is successfull.
@@ -95,11 +81,11 @@ void connectWifi()
 }
 
 /**
- * Draws centered text on display
+ * Draws centered text on display.
  * 
- * @param text The text to be printed
- * @param x Width of the screen in which the text is supposed to be centered (f.e. <b> x = tft.width() </b> centers the text on the entire display, <b> x = tft.width()  / 2 </b>  only on the left half of the display)
- * @param y Y position of the centered text on the display
+ * @param text The text to be printed.
+ * @param x Width of the screen in which the text is supposed to be centered (f.e. <b> x = tft.width() </b> centers the text on the entire display, <b> x = tft.width()  / 2 </b>  only on the left half of the display).
+ * @param y Y position of the centered text on the display.
  */
 void drawCenteredText(String text, uint8_t x, uint8_t y)
 {
@@ -111,11 +97,11 @@ void drawCenteredText(String text, uint8_t x, uint8_t y)
 }
 
 /**
- * Returns a color based on the parameter pm10
+ * Returns a color based on the parameter pm10.
  * 
- * Returns a color for better visualisation on the display of the pm10 value
- * @param pm10 The pm10 value
- * @return Returns a 16-bit hexadecimal representation of the corrosponding color
+ * Returns a color for better visualisation on the display of the pm10 value.
+ * @param pm10 The pm10 value.
+ * @return Returns a 16-bit hexadecimal representation of the corrosponding color.
  */
 uint16_t getPm10Color(double pm10)
 {
@@ -128,11 +114,11 @@ uint16_t getPm10Color(double pm10)
 }
 
 /**
- * Returns a color based on the parameter pm25
+ * Returns a color based on the parameter pm25.
  * 
- * Returns a color for better visualisation on the display of the pm2.5 value
- * @param pm25 The pm2.5 value
- * @return Returns a 16-bit hexadecimal representation of the corrosponding color
+ * Returns a color for better visualisation on the display of the pm2.5 value.
+ * @param pm25 The pm2.5 value.
+ * @return Returns a 16-bit hexadecimal representation of the corrosponding color.
  */
 uint16_t getPm25Color(double pm25)
 {
@@ -145,11 +131,11 @@ uint16_t getPm25Color(double pm25)
 }
 
 /**
- * Returns a color based on the parameter co2
+ * Returns a color based on the parameter co2.
  * 
- * Returns a color for better visualisation on the display of the co2 value
- * @param co2 The co2 value
- * @return Returns a 16-bit hexadecimal representation of the corrosponding color
+ * Returns a color for better visualisation on the display of the co2 value.
+ * @param co2 The co2 value.
+ * @return Returns a 16-bit hexadecimal representation of the corrosponding color.
  */
 uint16_t getCO2Color(double co2)
 {
@@ -162,9 +148,9 @@ uint16_t getCO2Color(double co2)
 }
 
 /**
- * Prints the regular UI and sensor values
+ * Prints the regular UI and sensor values.
  * 
- * Prints the current sensor values stores in field std::map<const char*, double>* sensorData
+ * Prints the current sensor values stores in field std::map<const char*, double>* sensorData.
  */
 void printRegularDisplay()
 {
@@ -212,16 +198,17 @@ void printRegularDisplay()
 }
 
 /**
- * Prints an error display
+ * Prints an error display.
  * 
- * Prints every string in the passed array into a new line on the tft
- * @param data std::array of 8 string to be printed into seperate lines
+ * Prints every string in the passed array into a new line on the tft.
+ * @param data std::array of 8 string to be printed into seperate lines.
+ * @param primaryColor text-color.
  */
-void printErrorDisplay(std::array<String, 8> data)
+void printDebugDisplay(std::array<String, 8> data, uint16_t primaryColor)
 {
   tft.fillScreen(ST7735_BLACK);
   tft.setTextSize(1);
-  tft.setTextColor(ST7735_RED);
+  tft.setTextColor(primaryColor);
   for(uint8_t i = 0; i < 8; i++)
   {
     drawCenteredText(data[i], tft.width(), 5 + i*20);
@@ -229,9 +216,9 @@ void printErrorDisplay(std::array<String, 8> data)
 }
 
 /**
- * Reads sensor values
+ * Reads sensor values.
  * 
- * Reads sensors and assigns the retrieved values to the corresponding pairs in std::map<const char*
+ * Reads sensors and assigns the retrieved values to the corresponding pairs in std::map<const char*.
  */
 void readSensors()
 {
@@ -251,48 +238,122 @@ void readSensors()
   
 }
 
+/**
+ * Initialises the SDS011 sensor.
+ * 
+ * Initialises the SDS011 sensor, retrieves firmware and preheats the sensor .
+ * 
+ * @return true if initialisation was successfull.
+ * @return false if communication with sensor failed at any point during initialisation.
+ */
+bool initSDS()
+{
+  printDebugDisplay({"Initialising SDS011"}, ST7735_WHITE);
+  sds.begin();
+
+  if(!sds.queryFirmwareVersion().isOk() || !sds.setQueryReportingMode().isOk() || !sds.wakeup().isOk())
+  {
+    printDebugDisplay({"Initialising SDS011", "Initialisation failed", "Restarting in 10s"}, ST7735_RED);
+    delay(10000);
+    return false;
+  }
+
+  PmResult last = sds.queryPm();
+  PmResult curr = sds.queryPm();
+  if(!last.isOk() || !curr.isOk())
+  {
+    printDebugDisplay({"Initialising SDS011", "Failed to retrieve values", "Restarting in 10s"}, ST7735_RED);
+    delay(10000);
+    return false;
+  }
+
+  do{
+    last = curr;
+    delay(1000);
+    curr = sds.queryPm();
+    printDebugDisplay({"Initialising SDS011", "Firmware: " + sds.queryFirmwareVersion().toString().substring(35), "Preheating...", "PM2.5:" + String(curr.pm25), 
+                        "PM10:" + String(curr.pm10), "Threshold: " + String(SDS_PREHEAT_THRESHOLD)},  ST7735_WHITE);
+  }while(last.pm10 - curr.pm10 > SDS_PREHEAT_THRESHOLD || last.pm25 - curr.pm25 > SDS_PREHEAT_THRESHOLD);
+  
+  return true;
+}
 
 /**
- * Predefined setup-function
+ * Initialises the MHZ-19C sensor.
  * 
- * Is called once in the beginning of runtime
+ * Initialises the MHZ-19C sensor and preheats the sensor .
+ * 
+ * @return true if initialisation was successfull.
+ * @return false if communication with sensor failed at any point during initialisation.
+ */
+bool initMHZ()
+{
+  mhSerial.begin(9600, SERIAL_8N1, 32, 33);                               
+  myMHZ19.begin(mhSerial);                                
+  myMHZ19.autoCalibration(false);
+
+  uint16_t curr = 0;
+  uint16_t last = 0;
+  uint8_t counter = 0;
+  do{
+    last = curr;
+    delay(10000);
+    curr = myMHZ19.getCO2();
+    printDebugDisplay({"Initialising MH-Z19C", "Preheating", "CO2: " + String(curr), "Threshold:" + String(MH_PREHEAT_THRESHOLD)}, ST7735_WHITE);
+
+    if(++counter > 6) // If still not working after 60 seconds, probably faulty connection
+    {
+      printDebugDisplay({"Initialising MH-Z19C", "Failed to retrieve ", "sensor values!", "Restarting in 10s"}, ST7735_RED);
+      delay(10000);
+      return false;
+    }
+  }while(last - curr > MH_PREHEAT_THRESHOLD || curr == 0 || last == 0);
+  
+  return true;
+}
+
+/**
+ * Predefined setup-function.
+ * 
+ * Is called once in the beginning of runtime.
  */
 void setup() 
 {
   Serial.begin(9600);
-
   // Init TFT
   tft.initR(INITR_BLACKTAB); 
   tft.fillScreen(ST7735_BLACK);
   tft.setTextSize(1);
-  drawCenteredText("init sensors", tft.width(), tft.height()/2);
 
-  // Init SDS
-  sds.begin();
-  // TODO Error display
-  Serial.println(sds.queryFirmwareVersion().toString()); // prints firmware version
-  Serial.println(sds.setQueryReportingMode().toString()); // ensures sensor is in 'query' reporting mode
-  sds.wakeup();
-
-  // Init MH-Z19C
-  mhSerial.begin(9600, SERIAL_8N1, 32, 33);                               
-  myMHZ19.begin(mhSerial);                                
-  myMHZ19.autoCalibration(false); 
+  if(!initSDS()) ESP.restart();
+  if(!initMHZ()) ESP.restart();
 
   // Init BME280
-  bme.begin(0x76);
-
+  if(!bme.begin(0x76))
+  {
+    printDebugDisplay({"Initialising BME280", "Failed to communicate with BME280", "Restarting in 10s"}, ST7735_RED);
+    delay(10000);
+    ESP.restart();
+  }
+  // Setup WiFi-connection
+  printDebugDisplay({"Connecting to WiFi", "SSID: " + String(SSID)}, ST7735_WHITE);
   connectWifi();
+
+  // Setup Server
+  printDebugDisplay({"Initialising OTA-Server", "SSID: " + String(SSID), "IP: " + WiFi.localIP().toString(), "Host: " + String(WiFi.getHostname()), 
+                     "WiFi connected: " + String(WiFi.isConnected())}, ST7735_WHITE);
   initElegentOTA();
   
-  logger = new MQTTLogger();
+  // Init logger
+  printDebugDisplay({"Initialising logger!"}, ST7735_WHITE);
+  logger = new HTTPLogger();
   timer = 0;
 }
 
 /**
- * Predefined loop-function
+ * Predefined loop-function.
  * 
- * Is called repeatedly during runtime
+ * Is called repeatedly during runtime.
  */
 void loop()
 {
@@ -304,17 +365,15 @@ void loop()
       readSensors();
       logger->log(sensorData);
       printRegularDisplay();
-    }catch(MQTTConnectionFailedException& e)
+    }catch(LoggerException& e)
     {
-      Serial.println("An exception occurred: " + String(e.what()));
-      printErrorDisplay({"Couldn't connect", "to MQTT-Broker" ,"IP: " + WiFi.localIP().toString(), "Host: " + String(WiFi.getHostname()), 
-                          "WiFi connected: " + String(WiFi.isConnected()), "Reset in " + String(LOOPDELAY/1000) + "s", AIOSERVER, AIOUSERNAME});
+      printDebugDisplay({"A Logger Exception", "occured!" ,"IP: " + WiFi.localIP().toString(), "Host: " + String(WiFi.getHostname()), 
+                          "WiFi connected: " + String(WiFi.isConnected()), "Reset in " + String(LOOPDELAY/1000) + "s", String(e.error), e.what()}, ST7735_RED);
       delay(LOOPDELAY);
       ESP.restart();
     }catch(WifiNotConnectedException& e) 
     {
-      Serial.println("An exception occurred: " + String(e.what()));
-      printErrorDisplay({"WiFi connection lost!", "Reconnecting..."});
+      printDebugDisplay({"WiFi connection lost!", "Reconnecting..."}, ST7735_RED);
       connectWifi();
     }
   }

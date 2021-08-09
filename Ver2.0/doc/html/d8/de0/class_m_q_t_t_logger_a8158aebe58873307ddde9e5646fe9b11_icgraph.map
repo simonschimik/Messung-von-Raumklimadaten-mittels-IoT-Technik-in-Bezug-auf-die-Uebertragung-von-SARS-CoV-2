@@ -1,0 +1,4 @@
+<map id="MQTTLogger::connectMQTT" name="MQTTLogger::connectMQTT">
+<area shape="rect" id="node1" title="Connects to MQTT&#45;Broker, if not already connected." alt="" coords="175,5,360,32"/>
+<area shape="rect" id="node2" href="$d8/de0/class_m_q_t_t_logger.html#a26247a8705fe074e8ccf0595f520465a" title="Publishes the current sensor values." alt="" coords="5,5,127,32"/>
+</map>

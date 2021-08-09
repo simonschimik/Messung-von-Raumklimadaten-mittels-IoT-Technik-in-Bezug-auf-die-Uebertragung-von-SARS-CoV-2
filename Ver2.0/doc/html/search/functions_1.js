@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['drawcenteredtext_32',['drawCenteredText',['../_ver2_80_8cpp.html#a7c342ee13f03ec2d2cc92f82132a772d',1,'Ver2.0.cpp']]]
+  ['drawcenteredtext_71',['drawCenteredText',['../d0/d9b/_ver2_80_8cpp.html#a0ae472404ee7e7f966698ca3652a637d',1,'Ver2.0.cpp']]]
 ];

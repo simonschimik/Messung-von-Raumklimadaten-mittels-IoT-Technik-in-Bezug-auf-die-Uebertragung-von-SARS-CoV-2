@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['initelegentota_36',['initElegentOTA',['../_ver2_80_8cpp.html#ab0f96ce61c8ce9c298570cdba43d5be3',1,'Ver2.0.cpp']]]
+  ['httplogger_75',['HTTPLogger',['../d8/d7d/class_h_t_t_p_logger.html#a6ae128871a02a295ea9fcd89de674615',1,'HTTPLogger']]]
 ];

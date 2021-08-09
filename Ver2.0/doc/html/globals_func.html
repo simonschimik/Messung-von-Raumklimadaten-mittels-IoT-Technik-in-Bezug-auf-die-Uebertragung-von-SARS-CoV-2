@@ -16,7 +16,13 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -29,6 +35,21 @@
    &#160;<span id="projectnumber">2.0</span>
    </div>
   </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.svg"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
  </tr>
  </tbody>
 </table>
@@ -40,16 +61,6 @@
 var searchBox = new SearchBox("searchBox", "search",false,'Search','.html');
 /* @license-end */
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
-});
-/* @license-end */</script>
-<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -84,37 +95,55 @@ $(document).ready(function(){initNavTree('globals_func.html',''); initResizable(
 <div class="contents">
 &#160;<ul>
 <li>connectWifi()
-: <a class="el" href="_ver2_80_8cpp.html#a707b5b9c44b80339c14dd10d14e62f61">Ver2.0.cpp</a>
+: <a class="el" href="d0/d9b/_ver2_80_8cpp.html#a707b5b9c44b80339c14dd10d14e62f61">Ver2.0.cpp</a>
 </li>
 <li>drawCenteredText()
-: <a class="el" href="_ver2_80_8cpp.html#a7c342ee13f03ec2d2cc92f82132a772d">Ver2.0.cpp</a>
+: <a class="el" href="d0/d9b/_ver2_80_8cpp.html#a0ae472404ee7e7f966698ca3652a637d">Ver2.0.cpp</a>
 </li>
 <li>getCO2Color()
-: <a class="el" href="_ver2_80_8cpp.html#a656f41514cf66abbeefa2be7f2b1dab3">Ver2.0.cpp</a>
+: <a class="el" href="d0/d9b/_ver2_80_8cpp.html#a284191931fc445d6968b64755521aab3">Ver2.0.cpp</a>
 </li>
 <li>getPm10Color()
-: <a class="el" href="_ver2_80_8cpp.html#a905c05b6a96352032769e7e3292a48c4">Ver2.0.cpp</a>
+: <a class="el" href="d0/d9b/_ver2_80_8cpp.html#ab60f091a1442d20898a3662948b4f68e">Ver2.0.cpp</a>
 </li>
 <li>getPm25Color()
-: <a class="el" href="_ver2_80_8cpp.html#a9a242494fbe3ee1a03fad93ad13d41c5">Ver2.0.cpp</a>
+: <a class="el" href="d0/d9b/_ver2_80_8cpp.html#a81f8bb0349b49e28ea14170388725e97">Ver2.0.cpp</a>
 </li>
 <li>initElegentOTA()
-: <a class="el" href="_ver2_80_8cpp.html#ab0f96ce61c8ce9c298570cdba43d5be3">Ver2.0.cpp</a>
+: <a class="el" href="d0/d9b/_ver2_80_8cpp.html#ab0f96ce61c8ce9c298570cdba43d5be3">Ver2.0.cpp</a>
+</li>
+<li>initMHZ()
+: <a class="el" href="d0/d9b/_ver2_80_8cpp.html#aba188d7f568639c98ee32c0760c90611">Ver2.0.cpp</a>
+</li>
+<li>initSDS()
+: <a class="el" href="d0/d9b/_ver2_80_8cpp.html#ac39fb709b61a8980ac299a8744dbcf8d">Ver2.0.cpp</a>
 </li>
 <li>loop()
-: <a class="el" href="_ver2_80_8cpp.html#afe461d27b9c48d5921c00d521181f12f">Ver2.0.cpp</a>
+: <a class="el" href="d0/d9b/_ver2_80_8cpp.html#afe461d27b9c48d5921c00d521181f12f">Ver2.0.cpp</a>
 </li>
-<li>printErrorDisplay()
-: <a class="el" href="_ver2_80_8cpp.html#a7efd85c341e929bbf79efb5f8de4e04e">Ver2.0.cpp</a>
+<li>mhSerial()
+: <a class="el" href="d0/d9b/_ver2_80_8cpp.html#a2a97c70eca86bd7a7825f7b5ba53cdf7">Ver2.0.cpp</a>
+</li>
+<li>printDebugDisplay()
+: <a class="el" href="d0/d9b/_ver2_80_8cpp.html#a09b58885fef1104f63acb80539f9dd88">Ver2.0.cpp</a>
 </li>
 <li>printRegularDisplay()
-: <a class="el" href="_ver2_80_8cpp.html#a454400cf140d9c48bdcaf735995a72fd">Ver2.0.cpp</a>
+: <a class="el" href="d0/d9b/_ver2_80_8cpp.html#a454400cf140d9c48bdcaf735995a72fd">Ver2.0.cpp</a>
 </li>
 <li>readSensors()
-: <a class="el" href="_ver2_80_8cpp.html#ad40ccf803c2eff76d7e0e7a24c9937ef">Ver2.0.cpp</a>
+: <a class="el" href="d0/d9b/_ver2_80_8cpp.html#ad40ccf803c2eff76d7e0e7a24c9937ef">Ver2.0.cpp</a>
+</li>
+<li>sds()
+: <a class="el" href="d0/d9b/_ver2_80_8cpp.html#a8f667a70ec200992addfe65f276332ee">Ver2.0.cpp</a>
+</li>
+<li>server()
+: <a class="el" href="d0/d9b/_ver2_80_8cpp.html#a85f30d66aa1231313c8553fd485b22b1">Ver2.0.cpp</a>
 </li>
 <li>setup()
-: <a class="el" href="_ver2_80_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d">Ver2.0.cpp</a>
+: <a class="el" href="d0/d9b/_ver2_80_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d">Ver2.0.cpp</a>
+</li>
+<li>tft()
+: <a class="el" href="d0/d9b/_ver2_80_8cpp.html#a5ea9d967ee330c0e32716b0892d2be3d">Ver2.0.cpp</a>
 </li>
 </ul>
 </div><!-- contents -->

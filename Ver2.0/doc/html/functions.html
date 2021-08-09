@@ -16,7 +16,13 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -29,6 +35,21 @@
    &#160;<span id="projectnumber">2.0</span>
    </div>
   </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.svg"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
  </tr>
  </tbody>
 </table>
@@ -40,16 +61,6 @@
 var searchBox = new SearchBox("searchBox", "search",false,'Search','.html');
 /* @license-end */
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
-});
-/* @license-end */</script>
-<div id="main-nav"></div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -82,18 +93,39 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 </div>
 
 <div class="contents">
-<div class="textblock">Here is a list of all documented class members with links to the class documentation for each member:</div><ul>
+<div class="textblock">Here is a list of all class members with links to the classes they belong to:</div><ul>
 <li>connectMQTT()
-: <a class="el" href="class_m_q_t_t_logger.html#a8158aebe58873307ddde9e5646fe9b11">MQTTLogger</a>
+: <a class="el" href="d8/de0/class_m_q_t_t_logger.html#a8158aebe58873307ddde9e5646fe9b11">MQTTLogger</a>
 </li>
-<li>feeds
-: <a class="el" href="class_m_q_t_t_logger.html#ace198ac82706488fd756d0eb0497586f">MQTTLogger</a>
+<li>error
+: <a class="el" href="dc/d67/struct_logger_exception.html#abc0cb9de7e5c5b021159ca67daab88c2">LoggerException</a>
+</li>
+<li>httpClient
+: <a class="el" href="d8/d7d/class_h_t_t_p_logger.html#aa19bf1de8afb0b390f9f50dcf8bf762e">HTTPLogger</a>
+</li>
+<li>HTTPLogger()
+: <a class="el" href="d8/d7d/class_h_t_t_p_logger.html#a6ae128871a02a295ea9fcd89de674615">HTTPLogger</a>
 </li>
 <li>log()
-: <a class="el" href="class_m_q_t_t_logger.html#a26247a8705fe074e8ccf0595f520465a">MQTTLogger</a>
+: <a class="el" href="d8/d7d/class_h_t_t_p_logger.html#afd9e5e0411b30e82daad10a35a756de5">HTTPLogger</a>
+, <a class="el" href="d3/d42/class_logger.html#a1916c57d784ecd4ed92427bd86f3499a">Logger</a>
+, <a class="el" href="d8/de0/class_m_q_t_t_logger.html#a26247a8705fe074e8ccf0595f520465a">MQTTLogger</a>
+</li>
+<li>LoggerException()
+: <a class="el" href="dc/d67/struct_logger_exception.html#a207a20e7fa2e3300b99cb2aa884048bc">LoggerException</a>
+</li>
+<li>mqttClient
+: <a class="el" href="d8/de0/class_m_q_t_t_logger.html#addf3d3b9fcd8f15e7bc64bfc50a37c4d">MQTTLogger</a>
 </li>
 <li>MQTTLogger()
-: <a class="el" href="class_m_q_t_t_logger.html#a1c6ea5288d8658f332a69fe2688d507b">MQTTLogger</a>
+: <a class="el" href="d8/de0/class_m_q_t_t_logger.html#aec16a59a33d813dc07a4fa6e41c1c5d0">MQTTLogger</a>
+</li>
+<li>wifiClient
+: <a class="el" href="d8/d7d/class_h_t_t_p_logger.html#adfc430e01940fb04ea4709e03b728044">HTTPLogger</a>
+, <a class="el" href="d8/de0/class_m_q_t_t_logger.html#a7d3eca3b30c017165194f6c780cb499d">MQTTLogger</a>
+</li>
+<li>WifiNotConnectedException()
+: <a class="el" href="d7/d77/struct_wifi_not_connected_exception.html#aa68ea20cdd72eff6789154256b0dd9a1">WifiNotConnectedException</a>
 </li>
 </ul>
 </div><!-- contents -->

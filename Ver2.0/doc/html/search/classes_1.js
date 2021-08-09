@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['mqttconnectionfailedexception_23',['MQTTConnectionFailedException',['../struct_m_q_t_t_connection_failed_exception.html',1,'']]],
-  ['mqttlogger_24',['MQTTLogger',['../class_m_q_t_t_logger.html',1,'']]]
+  ['logger_59',['Logger',['../d3/d42/class_logger.html',1,'']]],
+  ['loggerexception_60',['LoggerException',['../dc/d67/struct_logger_exception.html',1,'']]]
 ];

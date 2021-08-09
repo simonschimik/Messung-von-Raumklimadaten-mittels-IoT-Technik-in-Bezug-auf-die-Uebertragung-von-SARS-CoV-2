@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['logger_68',['logger',['../_ver2_80_8cpp.html#a571e6485378f22894f46e811a98e6ba1',1,'Ver2.0.cpp']]]
+  ['error_93',['error',['../dc/d67/struct_logger_exception.html#abc0cb9de7e5c5b021159ca67daab88c2',1,'LoggerException']]]
 ];

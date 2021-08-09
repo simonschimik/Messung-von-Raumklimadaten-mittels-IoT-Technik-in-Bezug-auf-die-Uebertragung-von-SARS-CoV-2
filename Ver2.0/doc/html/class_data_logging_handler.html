@@ -17,6 +17,7 @@
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -94,15 +95,15 @@ $(document).ready(function(){initNavTree('class_data_logging_handler.html',''); 
 <div class="dynheader">
 Inheritance diagram for DataLoggingHandler:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="class_data_logging_handler.png" usemap="#DataLoggingHandler_map" alt=""/>
-  <map id="DataLoggingHandler_map" name="DataLoggingHandler_map">
-<area href="class_m_q_t_t_logger.html" title="MQTTLogger class implementing DataLoggingHandler interface." alt="MQTTLogger" shape="rect" coords="0,56,128,80"/>
-  </map>
-</div></div>
+<div class="center"><img src="class_data_logging_handler__inherit__graph.png" border="0" usemap="#a_data_logging_handler_inherit__map" alt="Inheritance graph"/></div>
+<map name="a_data_logging_handler_inherit__map" id="a_data_logging_handler_inherit__map">
+<area shape="rect" title="Defines Interface DataLoggingHandler." alt="" coords="5,5,144,32"/>
+<area shape="rect" href="class_m_q_t_t_logger.html" title="MQTTLogger class implementing DataLoggingHandler interface." alt="" coords="27,80,123,107"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Defines Interface <a class="el" href="class_data_logging_handler.html" title="Defines Interface DataLoggingHandler.">DataLoggingHandler</a>. </p>
-<p>The abstract class <a class="el" href="class_data_logging_handler.html" title="Defines Interface DataLoggingHandler.">DataLoggingHandler</a> has the pure virutal function log() This means that no object of type <a class="el" href="class_data_logging_handler.html" title="Defines Interface DataLoggingHandler.">DataLoggingHandler</a> can be created If a subclass inherits <a class="el" href="class_data_logging_handler.html" title="Defines Interface DataLoggingHandler.">DataLoggingHandler</a>, it is forced to implement the function log(), and possibly other functions that might be implemented in the future The general idea behind this is that by defining an abstract class with only pure virutal functions (Java-Interface-equivalent) polymorphism can be utilized This allows for an easy implementation and use of additional DataLoggingHandlers, without implying large-scale rewrites where the original <a class="el" href="class_data_logging_handler.html" title="Defines Interface DataLoggingHandler.">DataLoggingHandler</a> was used </p>
+<p>The abstract class <a class="el" href="class_data_logging_handler.html" title="Defines Interface DataLoggingHandler.">DataLoggingHandler</a> has the pure virutal function log() This means that no object of type <a class="el" href="class_data_logging_handler.html" title="Defines Interface DataLoggingHandler.">DataLoggingHandler</a> can be created If a subclass inherits <a class="el" href="class_data_logging_handler.html" title="Defines Interface DataLoggingHandler.">DataLoggingHandler</a>, it is forced to implement the function log(), and possibly other functions that might be added in the future The general idea behind this is that by defining an abstract class with only pure virutal functions (Java-Interface-equivalent) polymorphism can be utilized This allows for an easy implementation and use of additional DataLoggingHandlers-subclasses, without implying large-scale rewrites where the original <a class="el" href="class_data_logging_handler.html" title="Defines Interface DataLoggingHandler.">DataLoggingHandler</a> was used </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/<a class="el" href="_data_logging_handler_8cpp.html">DataLoggingHandler.cpp</a></li>
 </ul>

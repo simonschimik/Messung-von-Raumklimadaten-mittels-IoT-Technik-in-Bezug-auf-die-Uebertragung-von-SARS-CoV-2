@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['mqttconnectionfailedexception_13',['MQTTConnectionFailedException',['../struct_m_q_t_t_connection_failed_exception.html',1,'']]],
-  ['mqttlogger_14',['MQTTLogger',['../class_m_q_t_t_logger.html',1,'MQTTLogger'],['../class_m_q_t_t_logger.html#a1c6ea5288d8658f332a69fe2688d507b',1,'MQTTLogger::MQTTLogger()']]],
-  ['mqttlogger_2ecpp_15',['MQTTLogger.cpp',['../_m_q_t_t_logger_8cpp.html',1,'']]]
+  ['httpclient_13',['httpClient',['../d8/d7d/class_h_t_t_p_logger.html#aa19bf1de8afb0b390f9f50dcf8bf762e',1,'HTTPLogger']]],
+  ['httplogger_14',['HTTPLogger',['../d8/d7d/class_h_t_t_p_logger.html',1,'HTTPLogger'],['../d8/d7d/class_h_t_t_p_logger.html#a6ae128871a02a295ea9fcd89de674615',1,'HTTPLogger::HTTPLogger()']]],
+  ['httplogger_2ecpp_15',['HTTPLogger.cpp',['../d3/d50/_h_t_t_p_logger_8cpp.html',1,'']]],
+  ['httpserver_16',['HTTPSERVER',['../db/d16/config_8h.html#adab3aa49fc2cdd4f91ab73dafcb329d4',1,'config.h']]]
 ];
