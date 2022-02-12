@@ -43,8 +43,8 @@
 #define MH_TX 32
 #define MH_RX 33
 
-#define SSID "Forstau10"
-#define PASS "affebaffba"
+#define SSID ""
+#define PASS ""
 
 // MQTTLogger
 #define AIOSERVER "0.0.0.0"
@@ -54,7 +54,7 @@
 #define LOOPDELAY 15000
 
 // HTTPLogger
-#define HTTPSERVER "http://0.0.0.0:3000/logData/"
+#define HTTPSERVER ""
 
 /** Defines limit for the WiFi-reconnect-count until ESP reset.*/
 #define WIFI_CONNECT_LIMIT 30

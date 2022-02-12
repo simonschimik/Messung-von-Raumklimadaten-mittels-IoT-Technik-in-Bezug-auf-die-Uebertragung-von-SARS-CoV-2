@@ -1,0 +1,4 @@
+<map id="DataLoggingHandler" name="DataLoggingHandler">
+<area shape="rect" id="node1" title="Defines Interface DataLoggingHandler." alt="" coords="5,5,144,32"/>
+<area shape="rect" id="node2" href="$class_m_q_t_t_logger.html" title="MQTTLogger class implementing DataLoggingHandler interface." alt="" coords="27,80,123,107"/>
+</map>

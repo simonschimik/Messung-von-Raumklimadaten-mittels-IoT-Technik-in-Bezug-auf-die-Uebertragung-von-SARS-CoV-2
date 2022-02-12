@@ -1,0 +1,13 @@
+<map id="setup" name="setup">
+<area shape="rect" id="node1" title="Predefined setup&#45;function." alt="" coords="5,132,60,159"/>
+<area shape="rect" id="node2" href="$d0/d9b/_ver2_80_8cpp.html#a707b5b9c44b80339c14dd10d14e62f61" title="Connects to WiFi." alt="" coords="117,5,208,32"/>
+<area shape="rect" id="node3" href="$d0/d9b/_ver2_80_8cpp.html#ab0f96ce61c8ce9c298570cdba43d5be3" title="Initialises OTA&#45;Server." alt="" coords="108,56,217,83"/>
+<area shape="rect" id="node5" href="$d0/d9b/_ver2_80_8cpp.html#aba188d7f568639c98ee32c0760c90611" title="Initialises the MHZ&#45;19C sensor." alt="" coords="129,107,196,133"/>
+<area shape="rect" id="node7" href="$d0/d9b/_ver2_80_8cpp.html#a09b58885fef1104f63acb80539f9dd88" title="Prints an error display." alt="" coords="265,157,392,184"/>
+<area shape="rect" id="node9" href="$d0/d9b/_ver2_80_8cpp.html#a5ea9d967ee330c0e32716b0892d2be3d" title=" " alt="" coords="615,208,653,235"/>
+<area shape="rect" id="node10" href="$d0/d9b/_ver2_80_8cpp.html#ac39fb709b61a8980ac299a8744dbcf8d" title="Initialises the SDS011 sensor." alt="" coords="129,208,196,235"/>
+<area shape="rect" id="node4" href="$d0/d9b/_ver2_80_8cpp.html#a85f30d66aa1231313c8553fd485b22b1" title=" " alt="" coords="301,56,357,83"/>
+<area shape="rect" id="node6" href="$d0/d9b/_ver2_80_8cpp.html#a2a97c70eca86bd7a7825f7b5ba53cdf7" title=" " alt="" coords="292,107,365,133"/>
+<area shape="rect" id="node8" href="$d0/d9b/_ver2_80_8cpp.html#a0ae472404ee7e7f966698ca3652a637d" title="Draws centered text on display." alt="" coords="440,208,567,235"/>
+<area shape="rect" id="node11" href="$d0/d9b/_ver2_80_8cpp.html#a8f667a70ec200992addfe65f276332ee" title=" " alt="" coords="307,208,350,235"/>
+</map>

@@ -1,0 +1,14 @@
+<map id="loop" name="loop">
+<area shape="rect" id="node1" title="Predefined loop&#45;function." alt="" coords="5,107,52,133"/>
+<area shape="rect" id="node2" href="$d1/d12/_final_8cpp.html#a707b5b9c44b80339c14dd10d14e62f61" title="Connects to WiFi." alt="" coords="122,5,213,32"/>
+<area shape="rect" id="node3" href="$d3/d42/class_logger.html#a1916c57d784ecd4ed92427bd86f3499a" title=" " alt="" coords="124,56,211,83"/>
+<area shape="rect" id="node4" href="$d1/d12/_final_8cpp.html#a09b58885fef1104f63acb80539f9dd88" title="Prints an error display." alt="" coords="104,107,231,133"/>
+<area shape="rect" id="node7" href="$d1/d12/_final_8cpp.html#a454400cf140d9c48bdcaf735995a72fd" title="Prints the regular UI and sensor values." alt="" coords="100,169,235,196"/>
+<area shape="rect" id="node11" href="$d1/d12/_final_8cpp.html#ad40ccf803c2eff76d7e0e7a24c9937ef" title="Reads sensor values." alt="" coords="120,271,215,297"/>
+<area shape="rect" id="node5" href="$d1/d12/_final_8cpp.html#a0ae472404ee7e7f966698ca3652a637d" title="Draws centered text on display." alt="" coords="283,93,409,120"/>
+<area shape="rect" id="node6" href="$d1/d12/_final_8cpp.html#a5ea9d967ee330c0e32716b0892d2be3d" title=" " alt="" coords="457,93,496,120"/>
+<area shape="rect" id="node8" href="$d1/d12/_final_8cpp.html#a284191931fc445d6968b64755521aab3" title="Returns a color based on the parameter co2." alt="" coords="298,195,394,221"/>
+<area shape="rect" id="node9" href="$d1/d12/_final_8cpp.html#ab60f091a1442d20898a3662948b4f68e" title="Returns a color based on the parameter pm10." alt="" coords="294,245,398,272"/>
+<area shape="rect" id="node10" href="$d1/d12/_final_8cpp.html#a81f8bb0349b49e28ea14170388725e97" title="Returns a color based on the parameter pm25." alt="" coords="294,296,398,323"/>
+<area shape="rect" id="node12" href="$d1/d12/_final_8cpp.html#a8f667a70ec200992addfe65f276332ee" title=" " alt="" coords="325,347,367,373"/>
+</map>

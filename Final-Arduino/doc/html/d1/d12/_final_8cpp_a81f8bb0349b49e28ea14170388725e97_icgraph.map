@@ -1,0 +1,5 @@
+<map id="getPm25Color" name="getPm25Color">
+<area shape="rect" id="node1" title="Returns a color based on the parameter pm25." alt="" coords="283,5,387,32"/>
+<area shape="rect" id="node2" href="$d1/d12/_final_8cpp.html#a454400cf140d9c48bdcaf735995a72fd" title="Prints the regular UI and sensor values." alt="" coords="100,5,235,32"/>
+<area shape="rect" id="node3" href="$d1/d12/_final_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Predefined loop&#45;function." alt="" coords="5,5,52,32"/>
+</map>

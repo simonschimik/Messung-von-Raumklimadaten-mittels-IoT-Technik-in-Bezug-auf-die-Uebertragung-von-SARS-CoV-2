@@ -1,0 +1,25 @@
+var _ver2_80_8cpp =
+[
+    [ "connectWifi", "d0/d9b/_ver2_80_8cpp.html#a707b5b9c44b80339c14dd10d14e62f61", null ],
+    [ "drawCenteredText", "d0/d9b/_ver2_80_8cpp.html#a0ae472404ee7e7f966698ca3652a637d", null ],
+    [ "getCO2Color", "d0/d9b/_ver2_80_8cpp.html#a284191931fc445d6968b64755521aab3", null ],
+    [ "getPm10Color", "d0/d9b/_ver2_80_8cpp.html#ab60f091a1442d20898a3662948b4f68e", null ],
+    [ "getPm25Color", "d0/d9b/_ver2_80_8cpp.html#a81f8bb0349b49e28ea14170388725e97", null ],
+    [ "initElegentOTA", "d0/d9b/_ver2_80_8cpp.html#ab0f96ce61c8ce9c298570cdba43d5be3", null ],
+    [ "initMHZ", "d0/d9b/_ver2_80_8cpp.html#aba188d7f568639c98ee32c0760c90611", null ],
+    [ "initSDS", "d0/d9b/_ver2_80_8cpp.html#ac39fb709b61a8980ac299a8744dbcf8d", null ],
+    [ "loop", "d0/d9b/_ver2_80_8cpp.html#afe461d27b9c48d5921c00d521181f12f", null ],
+    [ "mhSerial", "d0/d9b/_ver2_80_8cpp.html#a2a97c70eca86bd7a7825f7b5ba53cdf7", null ],
+    [ "printDebugDisplay", "d0/d9b/_ver2_80_8cpp.html#a09b58885fef1104f63acb80539f9dd88", null ],
+    [ "printRegularDisplay", "d0/d9b/_ver2_80_8cpp.html#a454400cf140d9c48bdcaf735995a72fd", null ],
+    [ "readSensors", "d0/d9b/_ver2_80_8cpp.html#ad40ccf803c2eff76d7e0e7a24c9937ef", null ],
+    [ "sds", "d0/d9b/_ver2_80_8cpp.html#a8f667a70ec200992addfe65f276332ee", null ],
+    [ "server", "d0/d9b/_ver2_80_8cpp.html#a85f30d66aa1231313c8553fd485b22b1", null ],
+    [ "setup", "d0/d9b/_ver2_80_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d", null ],
+    [ "tft", "d0/d9b/_ver2_80_8cpp.html#a5ea9d967ee330c0e32716b0892d2be3d", null ],
+    [ "bme", "d0/d9b/_ver2_80_8cpp.html#a2871708605796e3f6cfa9cd9328daff3", null ],
+    [ "logger", "d0/d9b/_ver2_80_8cpp.html#a0009c186c3629201f6c24eded36605f4", null ],
+    [ "myMHZ19", "d0/d9b/_ver2_80_8cpp.html#a23cfeb7adc6f7c73b1fa7b6aef8ae844", null ],
+    [ "sensorData", "d0/d9b/_ver2_80_8cpp.html#ae48589ea8c4fd66d6f266fbf288f279d", null ],
+    [ "timer", "d0/d9b/_ver2_80_8cpp.html#a0d88807102c8d96e37cb4751f0d5a7d3", null ]
+];

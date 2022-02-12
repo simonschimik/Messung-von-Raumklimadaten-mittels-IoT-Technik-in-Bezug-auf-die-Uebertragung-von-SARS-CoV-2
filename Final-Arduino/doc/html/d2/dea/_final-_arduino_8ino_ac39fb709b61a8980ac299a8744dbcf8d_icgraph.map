@@ -1,0 +1,4 @@
+<map id="initSDS" name="initSDS">
+<area shape="rect" id="node1" title="Initialises the SDS011 sensor." alt="" coords="108,5,175,32"/>
+<area shape="rect" id="node2" href="$d2/dea/_final-_arduino_8ino.html#a4fc01d736fe50cf5b977f755b675f11d" title="Predefined setup&#45;function." alt="" coords="5,5,60,32"/>
+</map>

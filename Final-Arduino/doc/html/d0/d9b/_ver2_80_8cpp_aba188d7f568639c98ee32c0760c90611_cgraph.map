@@ -1,0 +1,7 @@
+<map id="initMHZ" name="initMHZ">
+<area shape="rect" id="node1" title="Initialises the MHZ&#45;19C sensor." alt="" coords="5,31,72,57"/>
+<area shape="rect" id="node2" href="$d0/d9b/_ver2_80_8cpp.html#a2a97c70eca86bd7a7825f7b5ba53cdf7" title=" " alt="" coords="147,5,220,32"/>
+<area shape="rect" id="node3" href="$d0/d9b/_ver2_80_8cpp.html#a09b58885fef1104f63acb80539f9dd88" title="Prints an error display." alt="" coords="120,56,247,83"/>
+<area shape="rect" id="node4" href="$d0/d9b/_ver2_80_8cpp.html#a0ae472404ee7e7f966698ca3652a637d" title="Draws centered text on display." alt="" coords="295,31,421,57"/>
+<area shape="rect" id="node5" href="$d0/d9b/_ver2_80_8cpp.html#a5ea9d967ee330c0e32716b0892d2be3d" title=" " alt="" coords="469,56,508,83"/>
+</map>

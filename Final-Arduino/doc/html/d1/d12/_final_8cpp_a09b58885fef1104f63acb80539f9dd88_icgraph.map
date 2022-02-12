@@ -1,0 +1,7 @@
+<map id="printDebugDisplay" name="printDebugDisplay">
+<area shape="rect" id="node1" title="Prints an error display." alt="" coords="223,81,349,108"/>
+<area shape="rect" id="node2" href="$d1/d12/_final_8cpp.html#aba188d7f568639c98ee32c0760c90611" title="Initialises the MHZ&#45;19C sensor." alt="" coords="108,5,175,32"/>
+<area shape="rect" id="node3" href="$d1/d12/_final_8cpp.html#a4fc01d736fe50cf5b977f755b675f11d" title="Predefined setup&#45;function." alt="" coords="5,56,60,83"/>
+<area shape="rect" id="node4" href="$d1/d12/_final_8cpp.html#ac39fb709b61a8980ac299a8744dbcf8d" title="Initialises the SDS011 sensor." alt="" coords="108,107,175,133"/>
+<area shape="rect" id="node5" href="$d1/d12/_final_8cpp.html#afe461d27b9c48d5921c00d521181f12f" title="Predefined loop&#45;function." alt="" coords="118,157,165,184"/>
+</map>

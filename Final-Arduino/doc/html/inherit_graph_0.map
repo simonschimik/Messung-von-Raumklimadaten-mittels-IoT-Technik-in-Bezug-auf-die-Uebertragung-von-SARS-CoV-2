@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$d3/d42/class_logger.html" title="Defines Interface Logger ." alt="" coords="5,31,67,57"/>
+<area shape="rect" id="node2" href="$d8/d7d/class_h_t_t_p_logger.html" title=" " alt="" coords="116,5,209,32"/>
+<area shape="rect" id="node3" href="$d8/de0/class_m_q_t_t_logger.html" title="MQTTLogger class implementing Logger interface." alt="" coords="115,56,211,83"/>
+</map>

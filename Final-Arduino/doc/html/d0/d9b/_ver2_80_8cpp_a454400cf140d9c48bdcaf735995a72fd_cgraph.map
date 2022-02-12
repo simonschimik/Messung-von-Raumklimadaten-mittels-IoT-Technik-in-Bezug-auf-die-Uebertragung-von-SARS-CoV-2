@@ -1,0 +1,8 @@
+<map id="printRegularDisplay" name="printRegularDisplay">
+<area shape="rect" id="node1" title="Prints the regular UI and sensor values." alt="" coords="5,107,140,133"/>
+<area shape="rect" id="node2" href="$d0/d9b/_ver2_80_8cpp.html#a0ae472404ee7e7f966698ca3652a637d" title="Draws centered text on display." alt="" coords="188,5,315,32"/>
+<area shape="rect" id="node3" href="$d0/d9b/_ver2_80_8cpp.html#a5ea9d967ee330c0e32716b0892d2be3d" title=" " alt="" coords="363,31,401,57"/>
+<area shape="rect" id="node4" href="$d0/d9b/_ver2_80_8cpp.html#a284191931fc445d6968b64755521aab3" title="Returns a color based on the parameter co2." alt="" coords="203,107,299,133"/>
+<area shape="rect" id="node5" href="$d0/d9b/_ver2_80_8cpp.html#ab60f091a1442d20898a3662948b4f68e" title="Returns a color based on the parameter pm10." alt="" coords="199,157,303,184"/>
+<area shape="rect" id="node6" href="$d0/d9b/_ver2_80_8cpp.html#a81f8bb0349b49e28ea14170388725e97" title="Returns a color based on the parameter pm25." alt="" coords="199,208,303,235"/>
+</map>
