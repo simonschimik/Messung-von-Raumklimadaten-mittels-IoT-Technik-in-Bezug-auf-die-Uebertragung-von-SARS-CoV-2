@@ -1,3 +1,7 @@
-/doc/* linguist-vendored
-/doc/html/* linguist-vendored
-/doc/html/search/* linguist-vendored
+*.html linguist-generated
+*.sh linguist-generated
+*.css linguist-generated
+*.js linguist-generated
+**/doc/* linguist-generated
+**/.pio/* linguist-generated
+**/.vscode/* linguist-generated
